@@ -5,19 +5,19 @@ import java.util.Scanner;
 public class MemMan {
 
     public static void main(String[] args) throws FileNotFoundException {
-        
+
         if (args.length != 1) {
             System.out.println("Error message (change later)");
             return;
         }
-        
+
         String filename = args[0].trim();
         File commandFile = new File(filename);
         if (!commandFile.exists()) {
             System.out.println("File does not exist: " + filename);
             return;
         }
-        
+
         try (Scanner commandScanner = new Scanner(commandFile)) {
             while (commandScanner.hasNextLine()) {
                 String line = commandScanner.nextLine().trim();
@@ -33,39 +33,39 @@ public class MemMan {
                             // TO DO
                         }
                         else if (whatToPrint.equals("songs")) {
-                        	// TO DO
+                            // TO DO
                         }
                         else if (whatToPrint.equals("artists")) {
-                        	// TO DO
+                            // TO DO
                         }
                     }
                     else if (next.equals("insert")) {
                         String insertWhat = cScanner2.next();
                         if (insertWhat.equals("artist")) {
-                        	// TO DO
+                            // TO DO
                         }
                         else if (insertWhat.equals("song")) {
-                        	// TO DO
+                            // TO DO
                         }
                         else {
                             String artistAndSong = cScanner2.next();
                             String[] splits = artistAndSong.split("<");
                             String[] findingSong = splits[1].split(">");
-                            
+
                             String artist = splits[0];
                             String song = findingSong[1];
-                            
+
                             // TO DO
                         }
                     }
                     else if (next.equals("remove")) {
-                    	String removeWhat = cScanner2.next();
-                    	if (removeWhat.equals("song")) {
-                    		// TO DO
-                    	}
-                    	else if (removeWhat.equals("artist")) {
-                    		// TO DO
-                    	}
+                        String removeWhat = cScanner2.next();
+                        if (removeWhat.equals("song")) {
+                            // TO DO
+                        }
+                        else if (removeWhat.equals("artist")) {
+                            // TO DO
+                        }
                     }
                 }
                 cScanner2.close();

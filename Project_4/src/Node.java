@@ -11,28 +11,34 @@ public class Node {
         next = null;
     }
 
+
     public String getItem() {
         return item;
     }
+
 
     public Node getPrev() {
         return prev;
     }
 
+
     public Node getNext() {
         return next;
     }
 
+
     public void setItem(String r) {
-    	item = r;
+        item = r;
     }
+
 
     public void setPrev(Node n) {
-    	prev = n;
+        prev = n;
     }
 
+
     public void setNext(Node n) {
-    	next = n;
+        next = n;
     }
 
 }

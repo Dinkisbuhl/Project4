@@ -13,16 +13,19 @@ public class DoubleLL {
         size = 0;
     }
 
+
     public void insert(Node n) {
-        
+
     }
+
 
     public void remove(Node n) {
-        
+
     }
 
+
     public void printAll() {
-        
+
     }
 
 }
