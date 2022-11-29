@@ -3,21 +3,43 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class MemMan {
-
+   
+    private static HashTable hT;
+    
     public static void main(String[] args) throws FileNotFoundException {
 
-        if (args.length != 1) {
+        int hashSize = 0;
+        int memSize;
+        
+        if (args.length != 3) {
             System.out.println("Error message (change later)");
             return;
         }
+        
+        try {
+            hashSize = Integer.parseInt(args[0]);
+        }
+        catch (NumberFormatException e) {
+            System.out.println("Error parsing hash size");
+        }
+        
+        try {
+            memSize = Integer.parseInt(args[1]);
+        }
+        catch (NumberFormatException e) {
+            System.out.println("Error parsing mem size");
+        }
 
-        String filename = args[0].trim();
+        String filename = args[2].trim();
         File commandFile = new File(filename);
         if (!commandFile.exists()) {
             System.out.println("File does not exist: " + filename);
             return;
         }
 
+        hT = new HashTable(hashSize);
+        
+        
         try (Scanner commandScanner = new Scanner(commandFile)) {
             while (commandScanner.hasNextLine()) {
                 String line = commandScanner.nextLine().trim();
