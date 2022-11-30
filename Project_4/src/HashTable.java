@@ -8,9 +8,9 @@ public class HashTable {
     public HashTable(int s) {
         tableSize = s;
         hT = new HashRecord[tableSize];
-
+        
         for (int i = 0; i < tableSize; i++) {
-            hT[i].setKey(EMPTYKEY);
+            hT[i] = new HashRecord("", "");
         }
     }
 
@@ -93,7 +93,7 @@ public class HashTable {
             sum += c[k] * mult;
             mult *= 256;
         }
-        return (int)(Math.abs(sum)); // don't forget to % table size
+        return (int)(Math.abs(sum) % tableSize); // don't forget to % table size
     }
 
     private static class HashRecord {
