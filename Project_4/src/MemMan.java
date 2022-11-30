@@ -9,7 +9,7 @@ public class MemMan {
     public static void main(String[] args) throws FileNotFoundException {
 
         int hashSize = 0;
-        int memSize;
+        int memSize = 0;
         
         if (args.length != 3) {
             System.out.println("Error message (change later)");
