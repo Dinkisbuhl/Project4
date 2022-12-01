@@ -4,7 +4,9 @@ import java.util.Scanner;
 
 public class MemMan {
    
-    private static HashTable hT;
+    private static HashTable hT1;
+    private static HashTable hT2;
+    private static HashTable mpool;
     
     public static void main(String[] args) throws FileNotFoundException {
 
@@ -37,8 +39,10 @@ public class MemMan {
             return;
         }
 
-        hT = new HashTable(hashSize);
-        
+        hT1 = new HashTable(hashSize);
+        hT2 = new HashTable(hashSize);
+        mpool = new MemPool();// Add instantiation of MemPool object here
+        World world = new World(hT1, hT2, mPool);
         
         try (Scanner commandScanner = new Scanner(commandFile)) {
             while (commandScanner.hasNextLine()) {

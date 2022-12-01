@@ -1,43 +1,43 @@
 
-public class Node {
+public class Node<T> {
 
-    String item;
-    Node prev;
-    Node next;
+    T item;
+    Node<T> prev;
+    Node<T> next;
 
-    public Node(String thing) {
+    public Node(T thing) {
         item = thing;
         prev = null;
         next = null;
     }
 
 
-    public String getItem() {
+    public Object getItem() {
         return item;
     }
 
 
-    public Node getPrev() {
+	public Node<T> getPrev() {
         return prev;
     }
 
 
-    public Node getNext() {
+    public Node<T> getNext() {
         return next;
     }
 
 
-    public void setItem(String r) {
+    public void setItem(T r) {
         item = r;
     }
 
 
-    public void setPrev(Node n) {
+    public void setPrev(Node<T> n) {
         prev = n;
     }
 
 
-    public void setNext(Node n) {
+    public void setNext(Node<T> n) {
         next = n;
     }
 

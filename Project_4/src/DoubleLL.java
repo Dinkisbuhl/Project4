@@ -5,11 +5,11 @@ public class DoubleLL<T> implements Comparable {
     /**
      * The head node in the DoubleLL
      */
-    Node head;
+    Node<T> head;
     /**
      * The tail node in the DoubleLL
      */
-    Node tail;
+    Node<T> tail;
     private int size;
 
     /**
@@ -29,8 +29,36 @@ public class DoubleLL<T> implements Comparable {
      * @param obj
      *       THe object being inserted into the DoubleLL
      */
-    public void insert(int pos, T obj) {
-        
+    @SuppressWarnings("unchecked")
+	public void insert(int pos, T obj) {
+        if (pos < 0 || pos >= size || obj == null) {
+            return;
+        }
+    	Node<T> addNode = new Node<T>(obj);
+    	if (size == 0) {
+    		head.setNext(addNode);
+    		addNode.setPrev(head);
+    		tail.setPrev(addNode);
+    		addNode.setNext(tail);
+    		return;
+    	}
+    	Node current = head.next;
+    	for (int i = 0; i < pos; i++) {
+            current = current.next;
+        }
+        // Current is the penultimate item on the list
+        if (current == tail) {
+            current.getPrev().setNext(addNode);
+            tail = addNode.next;
+        }
+        else {
+            Node<T> oldNext = current.next;
+            current.setNext(addNode);
+            addNode.setPrev(current);
+            addNode.setNext(oldNext);
+            oldNext.setPrev(addNode);
+        }    
+        size++;
     }
     
     /**
@@ -54,9 +82,33 @@ public class DoubleLL<T> implements Comparable {
      *       their object removed
      */
     public void delete(int pos) {
-        
+        if (pos < 0 || pos >= size) {
+            return;
+        }
+        Node<T> current = head.getNext();
+        for (int i = 0; i < pos; i++) {
+            current = current.getNext();
+        }
+        if (current == tail) {
+            return;
+        }
+        current.getPrev().setNext(current.next);
+        current.getNext().setPrev(current.getPrev());
+    }
+
+    /**
+     * Returns the size of the DoubleLL
+     * 
+     * @return int
+     *        The size of the DoubleLL
+     */
+    public int getSize() {
+        return size;
     }
     
+    /**
+     * 
+     */
 	@Override
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
@@ -183,16 +235,6 @@ public class DoubleLL<T> implements Comparable {
 //        	current = current.next;
 //        }
 //        System.out.println("Total number of nodes in DoubleLL: " + size);
-//    }
-
-//    /**
-//     * Returns the size of the DoubleLL
-//     * 
-//     * @return int
-//     *        The size of the DoubleLL
-//     */
-//    public int getSize() {
-//        return size;
 //    }
 
 }
