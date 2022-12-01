@@ -2,12 +2,14 @@
 public class HashTable {
 
     private int tableSize;
+    private int fullness;
     private HashRecord[] hT;
     private String EMPTYKEY = "";
 
     public HashTable(int s) {
         tableSize = s;
         hT = new HashRecord[tableSize];
+        fullness = 0;
         
         for (int i = 0; i < tableSize; i++) {
             hT[i] = new HashRecord("", "");
@@ -17,6 +19,11 @@ public class HashTable {
 
     // Insert e into hash table HT
     public void hashInsert(String K, String e) {
+        if (fullness != 0) {
+            if ((tableSize / fullness) < 2) {
+                extendTable();
+            }
+        }
         int home = sFoldHash(K); // Home position for e
         int pos = home; // Init probe sequence
         for (int i = 1; EMPTYKEY != (hT[pos]).getKey(); i++) {
@@ -28,6 +35,7 @@ public class HashTable {
         }
         hT[pos].setKey(K);
         hT[pos].setValue(e);
+        fullness++;
     }
 
 
@@ -95,6 +103,30 @@ public class HashTable {
         }
         return (int)(Math.abs(sum) % tableSize); // don't forget to % table size
     }
+    
+    
+    public void extendTable() {
+        HashRecord[] oldTable = hT;
+        int oldSize = tableSize;
+        tableSize *= 2;
+        
+        hT = new HashRecord[tableSize];
+        fullness = 0;
+        
+        for (int i = 0; i < tableSize; i++) {
+            hT[i] = new HashRecord("", "");
+        }
+        
+        for (int i = 0; i < oldSize; i++) {
+            HashRecord temp = oldTable[i];
+            hashInsert(temp.getValue(), temp.getKey());
+        }
+    }
+    
+    public int getTableSize() {
+        return tableSize;
+    }
+    
 
     private static class HashRecord {
         String key;
