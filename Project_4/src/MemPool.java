@@ -2,39 +2,123 @@
 public class MemPool {
 
     private byte[] data;
+    private DoubleLL<Integer> freelist;
 
     /**
-     * Constructor
+     * 
+     * 
+     * @param b
+     * @param dll
      */
-    public MemPool(byte[] b) {
+    public MemPool(byte[] b, DoubleLL<Integer> dll) {
         data = b;
+        freelist = dll;
     }
 
     /**
-     * Inserts an object into the MemPool
+     * 
+     * 
+     * @param pool
+     * @param len
      */
     public void insert(byte[] pool, int len) {
-        // Find the best place to put the data 
-    	
-    	// Copy the length of the data 
-    	
-    	// Copy the data itself 
-    	
-    	// Best fit and add it to the MemPool 
-    	
-    }
-
-    /**
-     * Removes an object from the pool
-     */
-    public void remove(byte[] pool, int i) {
+        // If there's no room, expand
+    	if (freelist.getSize() == 0) {
+            expand();
+        }
+        
+    	// Insert the object into the freelist 
+        int loc = findSpot(len);
+        if (loc == -1) {
+    	    System.out.println("There is no suitable spot for this record"); // CHANGE LATER
+    	    return;
+        }
+        
+        
+        // Insert the object into the byte array
         
     }
 
     /**
-     * Prints out all the objects in the pool
+     * 
+     * 
+     * @param b
+     * @param len
      */
-    public void print() {
+    public void remove(byte[] b, int len) {
         
+    }
+
+    /**
+     * 
+     * 
+     * @param b
+     * @param len
+     */
+    public void print(byte[] b, int len) {
+        
+    }
+
+    /**
+     * 
+     */
+    private void expand() {
+        byte[] bigByte = new byte[data.length * 2];
+        for (int i = 0; i < data.length; i++) {
+            bigByte[i] = data[i];
+        }
+        data = bigByte;
+        System.out.println("Memory pool expanded to be " + bigByte.length + " bytes");
+    }
+
+    /**
+     * 
+     * 
+     * @param b
+     * @param leng
+     * @return
+     */
+    private int findSpot(int leng) {
+        int location = -1;
+        int minDistance = Integer.MAX_VALUE;
+        Node<Integer> curr = freelist.head.getNext();
+    	for (int i = 0; i < freelist.getSize(); i++) {
+            if ((int)curr.getItem() < leng) {
+                int minDist = leng - (int)curr.getItem();
+                if (minDist < minDistance) {
+                    minDistance = minDist;
+                    location = i;
+                }
+            }
+            curr = curr.getNext();
+        }
+    	return location;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

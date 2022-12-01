@@ -1,6 +1,6 @@
 
 @SuppressWarnings("rawtypes")
-public class DoubleLL<T> implements Comparable {
+public class DoubleLL<T> {
 
     /**
      * The head node in the DoubleLL
@@ -30,48 +30,76 @@ public class DoubleLL<T> implements Comparable {
      *       THe object being inserted into the DoubleLL
      */
     @SuppressWarnings("unchecked")
-	public void insert(int pos, T obj) {
-        if (pos < 0 || pos >= size || obj == null) {
+	public void insert(T obj) {
+        if (obj == null) {
             return;
         }
-    	Node<T> addNode = new Node<T>(obj);
-    	if (size == 0) {
-    		head.setNext(addNode);
-    		addNode.setPrev(head);
-    		tail.setPrev(addNode);
-    		addNode.setNext(tail);
-    		return;
-    	}
-    	Node current = head.next;
-    	for (int i = 0; i < pos; i++) {
-            current = current.next;
-        }
-        // Current is the penultimate item on the list
-        if (current == tail) {
-            current.getPrev().setNext(addNode);
-            tail = addNode.next;
-        }
-        else {
-            Node<T> oldNext = current.next;
-            current.setNext(addNode);
-            addNode.setPrev(current);
-            addNode.setNext(oldNext);
-            oldNext.setPrev(addNode);
-        }    
+  	    Node<T> addNode = new Node<T>(obj);
+  	    if (size == 0) {
+  	        head.setNext(addNode);
+  	        addNode.setPrev(head);
+  	        tail.setPrev(addNode);
+  	        addNode.setNext(tail);
+  		    return;
+  	    }
+  	    else {
+  	        Node newNext = head.getNext().getNext();
+  	    	head.setNext(addNode);
+  	        addNode.setPrev(head);
+  	        addNode.setNext(newNext);
+  	        newNext.setPrev(addNode);
+  	    }
         size++;
+    	
+//        if (pos < 0 || pos >= size || obj == null) {
+//            return;
+//        }
+//    	Node<T> addNode = new Node<T>(obj);
+//    	if (size == 0) {
+//    		head.setNext(addNode);
+//    		addNode.setPrev(head);
+//    		tail.setPrev(addNode);
+//    		addNode.setNext(tail);
+//    		return;
+//    	}
+//    	Node current = head.next;
+//    	for (int i = 0; i < pos; i++) {
+//            current = current.next;
+//        }
+//        // Current is the penultimate item on the list
+//        if (current == tail) {
+//            current.getPrev().setNext(addNode);
+//            tail = addNode.next;
+//        }
+//        else {
+//            Node<T> oldNext = current.next;
+//            current.setNext(addNode);
+//            addNode.setPrev(current);
+//            addNode.setNext(oldNext);
+//            oldNext.setPrev(addNode);
+//        }    
+//        size++;
     }
     
     /**
-     * Updates the DoubleLL to merge FreeBlocks
-     * together (I think)
+     * Updates the DoubleLL to get rid of 
+     * any nodes with value of 0
      * 
      * @param pos
      *       
      * @param obj
      *       
      */
-    public void update(int pos, T obj) {
-        
+    public void update() {
+        Node curr = head.next;
+        int count = 0;
+        while (curr != null) {
+            if ((int)curr.getItem() == 0) {
+                delete(count);
+            }
+            count++;
+            curr = curr.getNext();
+        }
     }
 
     /**
@@ -107,14 +135,16 @@ public class DoubleLL<T> implements Comparable {
     }
     
     /**
-     * 
+     * Prints out all the nodes in the DoubleLL
      */
-	@Override
-	public int compareTo(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+    public void printAll() {
+        System.out.println("FreeBlock List:");
+        Node curr = head.getNext();
+        while (curr != null) {
+            System.out.println(curr.getItem());
+        }
+    }
+    
 //    /**
 //     * Adds a node to the end of the DoubleLL
 //     * 
