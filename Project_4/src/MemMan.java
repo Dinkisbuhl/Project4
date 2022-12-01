@@ -6,7 +6,8 @@ public class MemMan {
    
     private static HashTable hT1;
     private static HashTable hT2;
-    private static HashTable mpool;
+    private static MemPool mpool;
+    private static byte[] bytes;
     
     public static void main(String[] args) throws FileNotFoundException {
 
@@ -27,6 +28,7 @@ public class MemMan {
         
         try {
             memSize = Integer.parseInt(args[1]);
+            bytes = new byte[memSize];
         }
         catch (NumberFormatException e) {
             System.out.println("Error parsing mem size");
@@ -41,8 +43,9 @@ public class MemMan {
 
         hT1 = new HashTable(hashSize);
         hT2 = new HashTable(hashSize);
-        mpool = new MemPool();// Add instantiation of MemPool object here
-        World world = new World(hT1, hT2, mPool);
+        DoubleLL<T> dll = new DoubleLL<T>();
+        mpool = new MemPool(bytes, dll);// Add instantiation of MemPool object here
+        World world = new World(hT1, hT2, mpool);
         
         try (Scanner commandScanner = new Scanner(commandFile)) {
             while (commandScanner.hasNextLine()) {
@@ -68,9 +71,11 @@ public class MemMan {
                     else if (next.equals("insert")) {
                         String insertWhat = cScanner2.next();
                         if (insertWhat.equals("artist")) {
+                            String artistName = cScanner2.next();
                             // TO DO
                         }
                         else if (insertWhat.equals("song")) {
+                            String songName = cScanner2.next();
                             // TO DO
                         }
                         else {
@@ -87,9 +92,11 @@ public class MemMan {
                     else if (next.equals("remove")) {
                         String removeWhat = cScanner2.next();
                         if (removeWhat.equals("song")) {
+                            String removeSong = cScanner2.next();
                             // TO DO
                         }
                         else if (removeWhat.equals("artist")) {
+                       	    String removeArtist = cScanner2.next();
                             // TO DO
                         }
                     }
