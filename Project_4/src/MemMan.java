@@ -72,6 +72,8 @@ public class MemMan {
                         String insertWhat = cScanner2.next();
                         if (insertWhat.equals("artist")) {
                             String artistName = cScanner2.next();
+                            byte[] artist = artistName.getBytes();
+                            
                             // TO DO
                         }
                         else if (insertWhat.equals("song")) {
