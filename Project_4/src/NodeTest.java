@@ -2,13 +2,13 @@ import junit.framework.TestCase;
 
 public class NodeTest extends TestCase {
 
-    private Node testNode;
+    private Node<String> testNode;
     
     /**
      * Sets up for the test method
      */
     public void setUp() {
-        testNode = new Node("Test");
+        testNode = new Node<String>("Test");
     }
     
     /**
@@ -22,9 +22,9 @@ public class NodeTest extends TestCase {
      * Tests the getPrev() method
      */
     public void testGetPrev() {
-        Node previous = new Node("Prev"); 
+        Node<String> previous = new Node<String>("Prev"); 
         testNode.setPrev(previous);
-        Node testPrev = testNode.getPrev();
+        Node<String> testPrev = testNode.getPrev();
         assertTrue(testPrev.getItem().equals("Prev"));
     }
     
@@ -32,9 +32,9 @@ public class NodeTest extends TestCase {
      * Tests the getNext() method
      */
     public void testGetNext() {
-        Node nextNode = new Node("Next"); 
+        Node<String> nextNode = new Node<String>("Next"); 
         testNode.setNext(nextNode);
-        Node testNext = testNode.getNext();
+        Node<String> testNext = testNode.getNext();
         assertTrue(testNext.getItem().equals("Next"));
     }
     
@@ -50,9 +50,9 @@ public class NodeTest extends TestCase {
      * Tests the setPrev() method
      */
     public void testSetPrev() {
-        Node previous = new Node("Prev"); 
+        Node<String> previous = new Node<String>("Prev"); 
         testNode.setPrev(previous);
-        Node testPrev = testNode.getPrev();
+        Node<String> testPrev = testNode.getPrev();
         assertTrue(testPrev.getItem().equals("Prev"));
     }
     
@@ -60,9 +60,9 @@ public class NodeTest extends TestCase {
      * Tests the setNext() method
      */
     public void testSetNext() {
-        Node nextNode = new Node("Next"); 
+        Node<String> nextNode = new Node<String>("Next"); 
         testNode.setNext(nextNode);
-        Node testNext = testNode.getNext();
+        Node<String> testNext = testNode.getNext();
         assertTrue(testNext.getItem().equals("Next"));
     }
 }
