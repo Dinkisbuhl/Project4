@@ -18,14 +18,13 @@ public class World {
      * Inserts the record into the World
      */
     public void insert(HashTable h, String input) {
-    	h.hashInsert();
-    	
+    	h.hashInsert(input, input);   	
     }
     
     /**
      * Removes a record from the World
      */
-    public void remove(HashTable, h, String input) {
-        h.
+    public void remove(HashTable h, String input) {
+        
     }
 }
