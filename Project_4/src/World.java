@@ -18,8 +18,9 @@ public class World {
      * Inserts the record into the World
      */
     public void insert(HashTable h, String input) {
-    	h.hashInsert();
-    	
+        
+        h.hashInsert();
+        
     }
     
     /**
