@@ -3,6 +3,7 @@ public class MemPool {
 
     private byte[] data;
     private DoubleLL<Integer> freelist;
+    private int initialSize;
 
     /**
      * 
@@ -13,6 +14,7 @@ public class MemPool {
     public MemPool(byte[] b, DoubleLL<Integer> dll) {
         data = b;
         freelist = dll;
+        initialSize = b.length;
     }
 
     /**
@@ -23,7 +25,7 @@ public class MemPool {
      */
     public void insert(byte[] pool, int len) {
         // If there's no room, expand
-    	if (freelist.getSize() == 0) {
+        if (freelist.getSize() == 0) {
             expand();
         }
         
@@ -33,10 +35,14 @@ public class MemPool {
     	    System.out.println("There is no suitable spot for this record"); // CHANGE LATER
     	    return;
         }
-        
+        @SuppressWarnings("unchecked")
+		Node<Integer> changeNode = freelist.getNode(loc);
+        changeNode.setItem((int)changeNode.getItem() - len);
+        freelist.update();
         
         // Insert the object into the byte array
-        
+        byte b = (byte)loc;
+        insertIntoByteArr(b);
     }
 
     /**
@@ -46,7 +52,18 @@ public class MemPool {
      * @param len
      */
     public void remove(byte[] b, int len) {
+        byte by = (byte)len;
+        byte z = (byte)0;
         
+        // remove something from the byte array
+        for (int i = 0; i < b.length; i++) {
+            if (b[i] == by) {
+                b[i] = z;
+            }
+        }
+        
+        // add free space to the freelist
+        freelist.insert(len);
     }
 
     /**
@@ -56,19 +73,36 @@ public class MemPool {
      * @param len
      */
     public void print(byte[] b, int len) {
-        
+        System.out.println("Blocks in the MemPool");
+    	for (int i = 0; i < b.length; i++) {
+            System.out.println(b[i]);
+        }
     }
 
     /**
      * 
      */
     private void expand() {
-        byte[] bigByte = new byte[data.length * 2];
+        byte[] bigByte = new byte[data.length + initialSize];
         for (int i = 0; i < data.length; i++) {
             bigByte[i] = data[i];
         }
+        freelist.insert(data.length);
         data = bigByte;
         System.out.println("Memory pool expanded to be " + bigByte.length + " bytes");
+    }
+    
+    /**
+     * 
+     * @param b
+     */
+    private void insertIntoByteArr(byte b) {
+        int i = 0;
+        byte zeroByte = (byte)0;
+        while (data[i] != zeroByte) {
+            i++;
+        }
+        data[i] = b;
     }
 
     /**
@@ -94,6 +128,7 @@ public class MemPool {
         }
     	return location;
     }
+    
 }
 
 

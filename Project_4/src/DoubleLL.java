@@ -123,6 +123,15 @@ public class DoubleLL<T> {
         current.getPrev().setNext(current.next);
         current.getNext().setPrev(current.getPrev());
     }
+    
+    
+    public Node getNode(int location) {
+        Node current = head.getNext();
+    	for (int i = 0; i < location; i++) {
+            current = current.getNext();
+        }
+    	return current;
+    }
 
     /**
      * Returns the size of the DoubleLL
