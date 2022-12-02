@@ -49,7 +49,16 @@ public class TempTable {
 
 
     public boolean hashRemove(String K) {
-        return false;
+        // a tombstone will be a null HashRecord
+        int pos = posSearch(K);
+        if (pos == -1) {
+            return false;
+        }
+        else {
+            hT[pos] = null;
+            fullness--;
+            return true;
+        }
     }
 
 
@@ -60,7 +69,7 @@ public class TempTable {
      * @param e
      * @return
      */
-    public boolean hashSearch(String K, String e) {
+    public boolean hashSearch(String K) {
         int home = sFoldHash(K);
         int pos = home;
         int j = 0;
@@ -84,6 +93,32 @@ public class TempTable {
             }
         }
         return true;
+    }
+    
+    public int posSearch(String K) {
+        int home = sFoldHash(K);
+        int pos = home;
+        int j = 0;
+
+        boolean cont = true;
+
+        while (cont) {
+            if (hT[pos] == null) { // if the index is a tombstone
+                pos = (home + j * j) % tableSize;
+                j++;
+            }
+            else if (hT[pos].getKey().equals(EMPTYKEY)) {
+                return -1; // if it gets here, there is no Key K
+            }
+            else if (!(hT[pos].getKey().equals(K))) {
+                pos = (home + j * j) % tableSize;
+                j++;
+            }
+            else {
+                cont = false;
+            }
+        }
+        return pos;
     }
 
 
