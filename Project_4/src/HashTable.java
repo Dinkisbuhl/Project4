@@ -75,12 +75,26 @@ public class HashTable {
     public boolean hashSearch(String K, String e) {
         int home = sFoldHash(K); // Home position for K
         int pos = home; // Initial position is the home slot
-        for (int i = 1; (K != (hT[pos]).getKey()) && (EMPTYKEY != (hT[pos])
+        int i = 1;
+        /*
+        for (i = 1; (K != (hT[pos]).getKey()) && (EMPTYKEY != (hT[pos])
             .getKey()); i++) {
             pos = (home + probe(K, i)) % tableSize; // Next on probe sequence
             if (hT[pos] == null) {
                 i++;
             }
+        }
+        */
+        if (hT[pos] == null) {
+            pos = (home + probe(K, i)) % tableSize;
+        }
+        while ((K != (hT[pos]).getKey()) && (EMPTYKEY != (hT[pos])
+            .getKey())) {
+            pos = (home + probe(K, i)) % tableSize; // Next on probe sequence
+            if (hT[pos] == null) {
+                break;
+            }
+            i++;
         }
         if (hT[pos] == null) {
             return false;
@@ -99,19 +113,16 @@ public class HashTable {
         int hv = sFoldHash(K);
         int t = hv;
         for (int j = 0; j < tableSize; j++) {
+            // Computing the new hash value
+            t = (hv + j * j) % tableSize;
             if (hT[t] != null) {
-                // Computing the new hash value
-                t = (hv + j * j) % tableSize;
-                if (hT[t].getKey() != EMPTYKEY) {
+                if (hT[t].getKey() == EMPTYKEY) {
 
                     // Break the loop after
                     // inserting the value
                     // in the table
                     break;
                 }
-            }
-            else {
-                t = (hv + j * j) % tableSize;
             }
         }
         return t;
