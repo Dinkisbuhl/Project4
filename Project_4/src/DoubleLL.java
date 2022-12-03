@@ -81,12 +81,12 @@ public class DoubleLL<T> {
      *       The position that is having
      *       their object removed
      */
-    public void delete(int pos) {
-        if (pos < 0 || pos >= size) {
-            return;
+    public void delete(T obj) {
+        if (obj == null) {
+        	return;
         }
         Node<T> current = head.getNext();
-        for (int i = 0; i < pos; i++) {
+        while (current != null && current.getItem() == obj) {
             current = current.getNext();
         }
         if (current == tail) {
@@ -118,16 +118,16 @@ public class DoubleLL<T> {
         return size;
     }
     
-//    /**
-//     * Prints out all the nodes in the DoubleLL
-//     */
-//    public void printAll() {
-//        System.out.println("FreeBlock List:");
-//        Node curr = head.getNext();
-//        while (curr != null) {
-//            System.out.println(curr.getItem());
-//        }
-//    }
+    /**
+     * Prints out all the nodes in the DoubleLL
+     */
+    public void print() {
+        System.out.println("FreeBlock List:");
+        Node curr = head.getNext();
+        while (curr != null) {
+            System.out.println(curr.getItem());
+        }
+    }
     
 
 }
