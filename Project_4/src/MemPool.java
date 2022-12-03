@@ -81,7 +81,6 @@ public class MemPool {
      */
     public void printAll() {
         System.out.println("Blocks in the MemPool: ");
-        if ()
         for (int i = 0; i < data.length; i++) {
             System.out.println(data[i]);
         }
