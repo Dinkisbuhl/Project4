@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class MemMan {
    
-    private static HashTable hT1;
-    private static HashTable hT2;
+    private static HashTable hTSong;
+    private static HashTable hTArtist;
     private static MemPool mpool;
     private static byte[] bytes;
     
@@ -41,11 +41,11 @@ public class MemMan {
             return;
         }
 
-        hT1 = new HashTable(hashSize);
-        hT2 = new HashTable(hashSize);
+        hTSong = new HashTable(hashSize);
+        hTArtist = new HashTable(hashSize);
         DoubleLL<Integer> dll = new DoubleLL<Integer>();
         mpool = new MemPool(bytes, dll);// Add instantiation of MemPool object here
-        World world = new World(hT1, hT2, mpool);
+        World world = new World(hTSong, hTArtist, mpool);
         
         try (Scanner commandScanner = new Scanner(commandFile)) {
             while (commandScanner.hasNextLine()) {
@@ -74,13 +74,13 @@ public class MemMan {
                             String artistName = cScanner2.next();
                             
                             // Check if the record if it's in the artist HashTable
-                            mpool.insert(artistName);
+                            world.insertArtist(hTArtist, artistName);
                         }
                         else if (insertWhat.equals("song")) {
                             String songName = cScanner2.next();
                             
                             // Check if the record if it's in the song HashTable
-                            
+                            world.insertSong(hTSong, songName);
                         }
                         else {
                             String artistAndSong = cScanner2.next();
@@ -92,7 +92,8 @@ public class MemMan {
 
                            // Check if the record if it's in the artist HashTable
                            // Check if the record if it's in the song HashTable
-                           
+                            world.insertArtist(hTArtist, artist);
+                            world.insertSong(hTSong, song);
                         }
                     }
                     else if (next.equals("remove")) {

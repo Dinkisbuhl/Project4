@@ -1,27 +1,41 @@
 
 public class World {
 
-    private HashTable ht1;
-    private HashTable ht2;
+    private HashTable hTSong;
+    private HashTable hTArtist;
     private MemPool mpool;
     
     /**
      * Constructor
      */
     public World(HashTable h1, HashTable h2, MemPool mp) {
-        ht1 = h1;
-        ht2 = h2;
+        hTSong = h1;
+        hTArtist = h2;
         mpool = mp;
     }
     
     /**
      * Inserts the record into the World
      */
-    public void insert(HashTable h, String input) {
+    public void insertSong(HashTable h, String input) {
         
-    	// Get len from input
-    	int length = 0; // change later
-        mpool.insert(mpool.getByteArr(), length);
+        if (!hTSong.hashSearch(input)) {
+            // Get len from input
+            int length = 0; // change later
+            mpool.insert(input);
+        }
+    }
+    
+    /**
+     * Inserts the record into the World
+     */
+    public void insertArtist(HashTable h, String input) {
+        
+        if (!hTArtist.hashSearch(input)) {
+            // Get len from input
+            int length = 0; // change later
+            mpool.insert(input);
+        }
     }
     
     /**
@@ -31,7 +45,7 @@ public class World {
         
         // Get len from input
     	int length = 0; // change later
-        mpool.insert(mpool.getByteArr(), length);
+        
     }
     
     /**
