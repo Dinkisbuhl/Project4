@@ -72,13 +72,15 @@ public class MemMan {
                         String insertWhat = cScanner2.next();
                         if (insertWhat.equals("artist")) {
                             String artistName = cScanner2.next();
-                            byte[] artist = artistName.getBytes();
                             
-                            // TO DO
+                            // Check if the record if it's in the artist HashTable
+                            mpool.insert(artistName);
                         }
                         else if (insertWhat.equals("song")) {
                             String songName = cScanner2.next();
-                            // TO DO
+                            
+                            // Check if the record if it's in the song HashTable
+                            
                         }
                         else {
                             String artistAndSong = cScanner2.next();
@@ -88,7 +90,9 @@ public class MemMan {
                             String artist = splits[0];
                             String song = findingSong[1];
 
-                            // TO DO
+                           // Check if the record if it's in the artist HashTable
+                           // Check if the record if it's in the song HashTable
+                           
                         }
                     }
                     else if (next.equals("remove")) {

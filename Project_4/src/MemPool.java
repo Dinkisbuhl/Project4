@@ -2,7 +2,7 @@
 public class MemPool {
 
     private byte[] data;
-    private DoubleLL<Integer> freelist;
+    private DoubleLL<FreeBlock> freelist;
     private int initialSize;
 
     /**
@@ -11,10 +11,12 @@ public class MemPool {
      * @param b
      * @param dll
      */
-    public MemPool(byte[] b, DoubleLL<Integer> dll) {
+    public MemPool(byte[] b, DoubleLL<FreeBlock> dll) {
         data = b;
         freelist = dll;
         initialSize = b.length;
+        FreeBlock startFBlock = new FreeBlock(0, initialSize);
+        freelist.insert(startFBlock);
     }
     
     /**
@@ -33,26 +35,19 @@ public class MemPool {
      * @param pool
      * @param len
      */
-    public void insert(byte[] pool, int len) {
-        // If there's no room, expand 
+    public void insert(String str) {
+        
+    	// If there's no room, expand 
         if (freelist.getSize() == 0) {
             expand();
         }
         
-    	// Insert the object into the FreeList 
-        int loc = findSpot(len);
-        if (loc == -1) {
-    	    System.out.println("There is no suitable spot for this record"); // CHANGE LATER 
-    	    return;
-        }
-        @SuppressWarnings("unchecked")
-		Node<Integer> changeNode = freelist.getNode(loc);
-        changeNode.setItem((int)changeNode.getItem() - len);
-        freelist.update();
+        byte[] bytes = str.getBytes();
+        int leng = bytes.length + 2; 
         
-        // Insert the object into the byte array 
-        byte b = (byte)loc;
-        insertIntoByteArr(b);
+        FreeBlock block = (FreeBlock) freelist.getNode(0).getItem();
+        block.setPosition(leng + 2 + 1);
+        
     }
 
     /**
@@ -61,19 +56,13 @@ public class MemPool {
      * @param b
      * @param len
      */
-    public void remove(byte[] b, int len) {
-        byte by = (byte)len;
-        byte z = (byte)0;
+    public void remove(String str) {
         
-        // remove something from the byte array
-        for (int i = 0; i < b.length; i++) {
-            if (b[i] == by) {
-                b[i] = z;
-            }
-        }
+        byte[] artist = str.getBytes();
+        int leng = artist.length + 2; 
         
-        // add free space to the freelist
-        freelist.insert(len);
+        
+        
     }
 
     /**
@@ -81,9 +70,9 @@ public class MemPool {
      */
     public void printAll() {
         System.out.println("Blocks in the MemPool: ");
-        for (int i = 0; i < data.length; i++) {
-            System.out.println(data[i]);
-        }
+//        for (int i = 0; i < data.length; i++) {
+//            System.out.println(data[i]);
+//        }
     }
 
     /**
@@ -95,8 +84,10 @@ public class MemPool {
         for (int i = 0; i < data.length; i++) {
             bigByte[i] = data[i];
         }
-        freelist.insert(data.length);
         data = bigByte;
+        
+        FreeBlock newStartFBlock = new FreeBlock(0, initialSize);
+        freelist.insert(newStartFBlock);
         System.out.println("Memory pool expanded to be " + bigByte.length + " bytes");
     }
     
