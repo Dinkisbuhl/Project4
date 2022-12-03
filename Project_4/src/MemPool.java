@@ -16,6 +16,16 @@ public class MemPool {
         freelist = dll;
         initialSize = b.length;
     }
+    
+    /**
+     * Gets the byte array from the MemPool
+     * 
+     * @return
+     *        The byte array
+     */
+    public byte[] getByteArr() {
+        return data;
+    }
 
     /**
      * 
@@ -24,15 +34,15 @@ public class MemPool {
      * @param len
      */
     public void insert(byte[] pool, int len) {
-        // If there's no room, expand
+        // If there's no room, expand 
         if (freelist.getSize() == 0) {
             expand();
         }
         
-    	// Insert the object into the freelist 
+    	// Insert the object into the FreeList 
         int loc = findSpot(len);
         if (loc == -1) {
-    	    System.out.println("There is no suitable spot for this record"); // CHANGE LATER
+    	    System.out.println("There is no suitable spot for this record"); // CHANGE LATER 
     	    return;
         }
         @SuppressWarnings("unchecked")
@@ -40,7 +50,7 @@ public class MemPool {
         changeNode.setItem((int)changeNode.getItem() - len);
         freelist.update();
         
-        // Insert the object into the byte array
+        // Insert the object into the byte array 
         byte b = (byte)loc;
         insertIntoByteArr(b);
     }
@@ -68,19 +78,18 @@ public class MemPool {
 
     /**
      * 
-     * 
-     * @param b
-     * @param len
      */
-    public void print(byte[] b, int len) {
-        System.out.println("Blocks in the MemPool");
-    	for (int i = 0; i < b.length; i++) {
-            System.out.println(b[i]);
+    public void printAll() {
+        System.out.println("Blocks in the MemPool: ");
+        if ()
+        for (int i = 0; i < data.length; i++) {
+            System.out.println(data[i]);
         }
     }
 
     /**
-     * 
+     * Increases space for the MemPool if there is no
+     * more space available
      */
     private void expand() {
         byte[] bigByte = new byte[data.length + initialSize];
@@ -93,8 +102,11 @@ public class MemPool {
     }
     
     /**
+     * Inserts a byte into the array
      * 
      * @param b
+     *       The byte to be added into the 
+     *       array 
      */
     private void insertIntoByteArr(byte b) {
         int i = 0;
@@ -106,11 +118,15 @@ public class MemPool {
     }
 
     /**
+     * Finds the best spot to put the data 
+     * into the MemPool using Best-Fit
      * 
-     * 
-     * @param b
      * @param leng
-     * @return
+     *       The object to be added to the
+     *       FreeList
+     * @return int
+     *        The location in the FreeList where
+     *        the thing should be added to
      */
     private int findSpot(int leng) {
         int location = -1;
