@@ -59,11 +59,23 @@ public class MemPool {
             expand();
         }
         
+        // Gets the bytes and the length of 
+        // the input string
         byte[] bytes = str.getBytes();
         int leng = bytes.length + 2; 
         
+        // Adds a FreeBlock showing the free space
+        // that was used up
         FreeBlock block = (FreeBlock) freelist.getNode(0).getItem();
         block.setPosition(leng + 2 + 1);
+        
+        // Adds the string bytes to the 
+        // byte[]
+        int j = 0;
+        for (int i = block.getPosition(); i < block.getPosition() + leng; i++) {
+            data[i] = bytes[j];
+            j++;
+        }
         
     }
 
