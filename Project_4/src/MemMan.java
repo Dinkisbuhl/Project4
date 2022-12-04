@@ -43,7 +43,7 @@ public class MemMan {
 
         hTSong = new HashTable(hashSize);
         hTArtist = new HashTable(hashSize);
-        DoubleLL<Integer> dll = new DoubleLL<Integer>();
+        DoubleLL<FreeBlock> dll = new DoubleLL<FreeBlock>();
         mpool = new MemPool(bytes, dll);// Add instantiation of MemPool object here
         World world = new World(hTSong, hTArtist, mpool);
         
