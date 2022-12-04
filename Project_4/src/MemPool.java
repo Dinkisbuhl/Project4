@@ -28,6 +28,23 @@ public class MemPool {
     public byte[] getByteArr() {
         return data;
     }
+    
+    /**
+     * Gets the freelist from the MemPool
+     * 
+     * @return
+     *        The FreeList of the MemPool
+     */
+    public DoubleLL<FreeBlock> getFreeList() {
+        return freelist;
+    }
+    
+    /**
+     * Gets the initialSize of the MemPool
+     */
+    public int getInitialSize() {
+        return initialSize;
+    }
 
     /**
      * Inserts a string record into the byte[]

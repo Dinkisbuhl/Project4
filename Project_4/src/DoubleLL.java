@@ -129,6 +129,17 @@ public class DoubleLL<T> {
         }
     }
     
+    /**
+     * Changes the size to a new value
+     * ONLY FOR TESTING
+     * 
+     * @param s
+     *       The new size
+     */
+    public void setSize(int s) {
+        size = s;
+    }
+    
 
 }
 
