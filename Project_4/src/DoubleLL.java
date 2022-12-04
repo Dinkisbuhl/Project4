@@ -62,14 +62,14 @@ public class DoubleLL<T> {
      * @param obj
      *       
      */
-    public void update() {
+    @SuppressWarnings("unchecked")
+	public void update() {
         Node curr = head.next;
-        int count = 0;
         while (curr != null) {
             if ((int)curr.getItem() == 0) {
-                delete(count);
+                delete((T)curr.getItem());
+                break;
             }
-            count++;
             curr = curr.getNext();
         }
     }

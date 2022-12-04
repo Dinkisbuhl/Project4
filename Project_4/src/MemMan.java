@@ -43,7 +43,7 @@ public class MemMan {
 
         hT1 = new HashTable(hashSize);
         hT2 = new HashTable(hashSize);
-        DoubleLL<Integer> dll = new DoubleLL<Integer>();
+        DoubleLL<FreeBlock> dll = new DoubleLL<FreeBlock>();
         mpool = new MemPool(bytes, dll);// Add instantiation of MemPool object here
         World world = new World(hT1, hT2, mpool);
         

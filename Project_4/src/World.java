@@ -19,9 +19,7 @@ public class World {
      */
     public void insert(HashTable h, String input) {
         
-    	// Get len from input
-    	int length = 0; // change later
-        mpool.insert(mpool.getByteArr(), length);
+        mpool.insert(input);
     }
     
     /**
@@ -29,9 +27,7 @@ public class World {
      */
     public void remove(HashTable h, String input) {
         
-        // Get len from input
-    	int length = 0; // change later
-        mpool.insert(mpool.getByteArr(), length);
+        mpool.insert(input);
     }
     
     /**
