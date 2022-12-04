@@ -62,14 +62,14 @@ public class DoubleLL<T> {
      * @param obj
      *       
      */
-    public void update() {
+    @SuppressWarnings("unchecked")
+	public void update() {
         Node curr = head.next;
-        int count = 0;
         while (curr != null) {
             if ((int)curr.getItem() == 0) {
-                delete(count);
+                delete((T)curr.getItem());
+                break;
             }
-            count++;
             curr = curr.getNext();
         }
     }
@@ -127,6 +127,17 @@ public class DoubleLL<T> {
         while (curr != null) {
             System.out.println(curr.getItem());
         }
+    }
+    
+    /**
+     * Changes the size to a new value
+     * ONLY FOR TESTING
+     * 
+     * @param s
+     *       The new size
+     */
+    public void setSize(int s) {
+        size = s;
     }
     
 
