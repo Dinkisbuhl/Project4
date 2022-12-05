@@ -52,8 +52,8 @@ public class MemPool {
      * Gets the initialSize of the MemPool
      * 
      * @return int
-     *        The initial size of 
-     *        the MemPool
+     *         The initial size of
+     *         the MemPool
      */
     public int getInitialSize() {
         return initialSize;
@@ -98,7 +98,6 @@ public class MemPool {
                     bestFitIndex = i;
                 }
             }
-            currNode = currNode.next;
         }
 
         // if we still are left with the original bestFit freeblock, then we
@@ -112,7 +111,7 @@ public class MemPool {
         // and then bytes in that order
 
         int oldPos = bestFit.getPosition();
-        
+
         if (bestFit.getSize() == totalLength) {
             freelist.delete(bestFit);
         }
@@ -122,9 +121,9 @@ public class MemPool {
             FreeBlock newBlock = new FreeBlock(newPos, newSize);
             freelist.getNode(bestFitIndex).setItem(newBlock);
         }
-        
-        // Adds the string bytes to the
-        // byte[]
+
+        // Adds the two byte header and the string bytes to the
+        // data[]
         int j = 0;
         data[oldPos] = lenBytes[0];
         data[oldPos + 1] = lenBytes[1];
@@ -203,14 +202,18 @@ public class MemPool {
      * more space available
      */
     private void expand() {
+        int oldEnd = data.length;
         byte[] bigByte = new byte[data.length + initialSize];
         for (int i = 0; i < data.length; i++) {
             bigByte[i] = data[i];
         }
         data = bigByte;
+        
 
-        FreeBlock newStartFBlock = new FreeBlock(0, initialSize);
-        freelist.insert(newStartFBlock);
+        
+        
+        FreeBlock newSpaceFBlock = new FreeBlock(oldEnd, initialSize);
+        freelist.insert(newSpaceFBlock);
         System.out.println("Memory pool expanded to be " + bigByte.length
             + " bytes");
     }
