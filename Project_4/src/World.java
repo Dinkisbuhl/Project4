@@ -1,3 +1,9 @@
+/**
+ * Handles the methods in the World Class
+ * 
+ * @author Rakesh Chandraraj, Kyle Hilgenberg
+ * @version 2022-12-02
+ */
 
 public class World {
 
@@ -49,7 +55,8 @@ public class World {
     }
     
     /**
-     * 
+     * Prints all the records in the HashTable and the
+     * MemPool
      */
     public void print(HashTable h1, HashTable h2, MemPool mp) {
         

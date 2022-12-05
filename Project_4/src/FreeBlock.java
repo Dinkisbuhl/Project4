@@ -1,3 +1,9 @@
+/**
+ * Handles the free space in the byte[] 
+ * 
+ * @author Rakesh Chandraraj, Kyle Hilgenberg
+ * @version 2022-12-02
+ */
 
 public class FreeBlock {
 

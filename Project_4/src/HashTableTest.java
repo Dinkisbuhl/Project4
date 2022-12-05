@@ -1,12 +1,25 @@
 import junit.framework.TestCase;
 
+/**
+ * Tests the methods in the HashTable Class
+ * 
+ * @author Rakesh Chandraraj, Kyle Hilgenberg
+ * @version 2022-12-01
+ */
+
 public class HashTableTest extends TestCase {
 
+    /**
+     * The Hashtable to be tested here
+     */
     HashTable hT;
+    /**
+     * The Handle to be tested here
+     */
     Handle basicHandle;
 
     /**
-     * Sets up the Node for the
+     * Sets up the HashTable for the
      * test methods
      */
     public void setUp() {
@@ -14,7 +27,10 @@ public class HashTableTest extends TestCase {
         basicHandle = new Handle(0);
     }
 
-
+    /**
+     * Tests the sFold method under normal
+     * circumstances
+     */
     public void testSfoldHash() {
         hT = new HashTable(10);
         String str1 = "something";
@@ -29,7 +45,9 @@ public class HashTableTest extends TestCase {
         assertEquals(7, hT.sFoldHash(str5));
     }
 
-
+    /**
+     * Tests the sFold method for a filled up HashTable
+     */
     public void testSfoldHash2() {
         hT = new HashTable(5);
         String str1 = "something";
@@ -46,7 +64,10 @@ public class HashTableTest extends TestCase {
         assertEquals(1, hT.sFoldHash(str6));
     }
 
-
+    /**
+     * Tests the insert method under normal
+     * circumstances
+     */
     public void testInsert() {
         hT = new HashTable(10);
         String str1 = "something";
@@ -59,7 +80,10 @@ public class HashTableTest extends TestCase {
         assertTrue(hT.hashSearch(str2));
     }
 
-
+    /**
+     * Tests the insert method and checking
+     * their size
+     */
     public void testInsert2() {
         hT = new HashTable(10);
         String str1 = "idk";
@@ -73,7 +97,9 @@ public class HashTableTest extends TestCase {
         assertEquals(7, hT.sFoldHash(str2));
     }
 
-
+    /**
+     * Tests the extendTable() method
+     */
     public void testExtendTable() {
         hT = new HashTable(5);
         String str1 = "something";
@@ -93,7 +119,10 @@ public class HashTableTest extends TestCase {
         assertEquals(hT.getTableSize(), 10);
     }
 
-
+    /**
+     * Tests the remove() method under 
+     * normal circumstances
+     */
     public void testRemove() {
         hT = new HashTable(5);
         String str1 = "something";
@@ -103,7 +132,10 @@ public class HashTableTest extends TestCase {
         assertFalse(hT.hashSearch(str1));
     }
 
-
+    /**
+     * Tests the remove method when filling
+     * the table 
+     */
     public void testRemove2() {
         hT = new HashTable(5);
         String str1 = "something";

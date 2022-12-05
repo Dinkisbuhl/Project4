@@ -1,3 +1,10 @@
+/**
+ * Handles the methods in the HashTable Class
+ * 
+ * @author Rakesh Chandraraj, Kyle Hilgenberg
+ * @version 2022-12-01
+ */
+
 public class HashTable {
 
     private int tableSize;
@@ -5,6 +12,12 @@ public class HashTable {
     private HashRecord[] hT;
     private String EMPTYKEY = "";
 
+    /**
+     * Constructor
+     * 
+     * @param s
+     *       The size of the HashTable
+     */
     public HashTable(int s) {
         tableSize = s;
         hT = new HashRecord[tableSize];
@@ -18,7 +31,14 @@ public class HashTable {
     }
 
 
-    // Insert e into hash table HT
+    /**
+     * Insert something into a HashTable
+     * 
+     * @param K
+     *       The length of the record
+     * @param h
+     *       The record
+     */
     public void hashInsert(String K, Handle h) {
         if (fullness != 0) {
             if ((tableSize / fullness) < 2) {
@@ -49,7 +69,16 @@ public class HashTable {
         }
     }
 
-
+    /**
+     * Removes a string from the HashTable
+     * 
+     * @param K
+     *       The record to be removed from the
+     *       HashTable 
+     * @return
+     *       True if the record is removed, and 
+     *       false otherwise 
+     */
     public boolean hashRemove(String K) {
         // a tombstone will be a null HashRecord
         int pos = posSearch(K);
@@ -63,13 +92,17 @@ public class HashTable {
         }
     }
 
-
     /**
      * Search for a record with key K
      * 
      * @param K
+     *       The key of the record 
      * @param e
-     * @return
+     *       The record 
+     * @return boolean
+     *        True if the record is in the 
+     *        HashTable, and false 
+     *        otherwise
      */
     public boolean hashSearch(String K) {
         int home = sFoldHash(K);
@@ -97,7 +130,14 @@ public class HashTable {
         return true;
     }
 
-
+    /**
+     * Searches for the record in the HashTable
+     * 
+     * @param K
+     *       The key of the record 
+     * @return int
+     *       The position of the record
+     */
     public int posSearch(String K) {
         int home = sFoldHash(K);
         int pos = home;
@@ -106,7 +146,7 @@ public class HashTable {
         boolean cont = true;
 
         while (cont) {
-            if (hT[pos] == null) { // if the index is a tombstone
+            if (hT[pos] == null) { // if the index is a TombStone
                 pos = (home + j * j) % tableSize;
                 j++;
             }
@@ -124,7 +164,18 @@ public class HashTable {
         return pos;
     }
 
-
+    /**
+     * Does the quadratic probe to find the next
+     * possible spot 
+     * 
+     * @param K
+     *       The key of the record
+     * @param i
+     *       The starting location of the probe
+     * @return int
+     *       The position in the HashTable where
+     *       the record is to be stored
+     */
     public int probe(String K, int i) {
         int home = i;
         int pos = home;
@@ -142,7 +193,10 @@ public class HashTable {
         return pos;
     }
 
-
+    /**
+     * Extends the table when the table isn't 
+     * large enough to store more records
+     */
     public void extendTable() {
         HashRecord[] oldTable = hT;
         int oldSize = tableSize;
@@ -164,7 +218,6 @@ public class HashTable {
             }
         }
     }
-
 
     /**
      * This method is the string folding hash function.
@@ -194,15 +247,35 @@ public class HashTable {
         return (int)(Math.abs(sum) % tableSize); // don't forget to % table size
     }
 
-
+    /**
+     * Returns the table size
+     * 
+     * @return int
+     *      The size of the table
+     */
     public int getTableSize() {
         return tableSize;
     }
 
+    
     private static class HashRecord {
-        String key;
+        /**
+         * The key of the HashRecord
+         */
+    	String key;
+    	/**
+    	 * The handle of the HashRecord
+    	 */
         Handle handle;
 
+        /**
+         * Constructor
+         * 
+         * @param k
+         *       The key of the record
+         * @param h
+         *       The record
+         */
         public HashRecord(String k, Handle h) {
             key = k;
             handle = h;

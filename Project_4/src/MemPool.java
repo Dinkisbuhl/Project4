@@ -1,3 +1,9 @@
+/**
+ * Handles the methods in the MemPool Class
+ * 
+ * @author Rakesh Chandraraj, Kyle Hilgenberg
+ * @version 2022-12-01
+ */
 
 public class MemPool {
 
@@ -34,7 +40,7 @@ public class MemPool {
     /**
      * Gets the FreeList from the MemPool
      * 
-     * @return
+     * @return DoubleLL<FreeBlock>
      *         The FreeList of the MemPool
      */
     public DoubleLL<FreeBlock> getFreeList() {
@@ -44,6 +50,10 @@ public class MemPool {
 
     /**
      * Gets the initialSize of the MemPool
+     * 
+     * @return int
+     *        The initial size of 
+     *        the MemPool
      */
     public int getInitialSize() {
         return initialSize;

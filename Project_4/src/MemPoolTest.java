@@ -1,3 +1,10 @@
+/**
+ * Tests the methods in the MemPool Class
+ * 
+ * @author Rakesh Chandraraj, Kyle Hilgenberg
+ * @version 2022-12-01
+ */
+
 import junit.framework.TestCase;
 
 public class MemPoolTest extends TestCase {
@@ -6,7 +13,7 @@ public class MemPoolTest extends TestCase {
     DoubleLL<FreeBlock> dll;
     
     /**
-     * 
+     * Sets the testMP for the methods 
      */
     public void setUp() {
         byte[] testB = new byte[10];
@@ -70,37 +77,3 @@ public class MemPoolTest extends TestCase {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

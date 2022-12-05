@@ -2,6 +2,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Handle the methods in the MemMan class
+ * 
+ * @author Rakesh Chandraraj, Kyle Hilgenberg
+ * @version 2022-12-01
+ */
+
 public class MemMan {
    
     private static HashTable hTSong;
@@ -9,6 +16,14 @@ public class MemMan {
     private static MemPool mpool;
     private static byte[] bytes;
     
+    /**
+     * The main method of the MemMan
+     * 
+     * @param args
+     *       The array of strings from the file 
+     * @throws FileNotFoundException
+     *       The file might not be found 
+     */
     public static void main(String[] args) throws FileNotFoundException {
 
         int hashSize = 0;

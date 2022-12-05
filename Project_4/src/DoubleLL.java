@@ -1,3 +1,9 @@
+/**
+ * Handles the method of the DoubleLL
+ * 
+ * @author Rakesh Chandraraj, Kyle Hilgenberg
+ * @version 2022-12-02
+ */
 
 @SuppressWarnings("rawtypes")
 public class DoubleLL<T> {
@@ -10,6 +16,7 @@ public class DoubleLL<T> {
      * The tail node in the DoubleLL
      */
     Node<T> tail;
+    
     private int size;
 
     /**
@@ -55,12 +62,7 @@ public class DoubleLL<T> {
     
     /**
      * Updates the DoubleLL to get rid of 
-     * any nodes with value of 0
-     * 
-     * @param pos
-     *       
-     * @param obj
-     *       
+     * any nodes with value of 0     
      */
     @SuppressWarnings("unchecked")
 	public void update() {
@@ -75,38 +77,48 @@ public class DoubleLL<T> {
     }
 
     /**
-     * Deletes the object at the pos
+     * Deletes the object 
      * 
-     * @param pos
-     *       The position that is having
-     *       their object removed
+     * @param obj
+     *       The object to be removed
+     *       from the DoubleLL
      */
     public void delete(T obj) {
         if (obj == null) {
         	return;
         }
-        Node<T> current = head.getNext();
-        while (current != null && current.getItem() == obj) {
-            current = current.getNext();
+        if (head.getNext() != null) {
+            Node<T> current = head.getNext();
+            while (current.getItem() != obj) {
+                current = current.getNext();
+            }
+            if (current == tail) {
+                return;
+            }
+            current.getPrev().setNext(current.next);
+            current.getNext().setPrev(current.getPrev());
         }
-        if (current == tail) {
-            return;
-        }
-        current.getPrev().setNext(current.next);
-        current.getNext().setPrev(current.getPrev());
     }
     
-    
-    public Node getNode(int location) {
-        if (location > size) {
-        	return null;
-        }
-    	Node current = head.getNext();
-    	for (int i = 0; i < location; i++) {
-            current = current.getNext();
-        }
-    	return current;
-    }
+//    /**
+//     * Gets the node 
+//     * 
+//     * @param location
+//     *       The location we have 
+//     * @return Node
+//     *        The node that exists at 
+//     *        the location
+//     */
+//    public Node getNode(int location) {
+//        if (location > size) {
+//        	return null;
+//        }
+//    	Node current = head.getNext();
+//    	for (int i = 0; i < location; i++) {
+//            current = current.getNext();
+//        }
+//    	return current;
+//    }
 
     /**
      * Returns the size of the DoubleLL
@@ -118,16 +130,16 @@ public class DoubleLL<T> {
         return size;
     }
     
-    /**
-     * Prints out all the nodes in the DoubleLL
-     */
-    public void print() {
-        System.out.println("FreeBlock List:");
-        Node curr = head.getNext();
-        while (curr != null) {
-            System.out.println(curr.getItem());
-        }
-    }
+//    /**
+//     * Prints out all the nodes in the DoubleLL
+//     */
+//    public void print() {
+//        System.out.println("FreeBlock List:");
+//        Node curr = head.getNext();
+//        while (curr != null) {
+//            System.out.println(curr.getItem());
+//        }
+//    }
     
     /**
      * Changes the size to a new value
@@ -142,10 +154,6 @@ public class DoubleLL<T> {
     
 
 }
-
-
-
-
 
 
 

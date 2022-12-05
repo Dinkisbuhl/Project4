@@ -1,3 +1,10 @@
+/**
+ * Is the handle of the record in the mempool 
+ * that is represented in the HashTable
+ * 
+ * @author Rakesh Chandraraj, Kyle Hilgenberg
+ * @version 2022-11-30
+ */
 
 public class Handle {
 

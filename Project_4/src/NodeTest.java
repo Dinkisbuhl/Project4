@@ -1,5 +1,12 @@
 import junit.framework.TestCase;
 
+/**
+ * Tests the methods in the Node Class
+ * 
+ * @author Rakesh Chandraraj, Kyle Hilgenberg
+ * @version 2022-11-29
+ */
+
 public class NodeTest extends TestCase {
 
     private Node<String> testNode;
@@ -66,16 +73,3 @@ public class NodeTest extends TestCase {
         assertTrue(testNext.getItem().equals("Next"));
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
