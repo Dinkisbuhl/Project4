@@ -57,7 +57,6 @@ public class DoubleLL<T> {
   	        newNext.setPrev(addNode);
   	    }
         size++;
-    	
     }
 
     /**
@@ -73,7 +72,7 @@ public class DoubleLL<T> {
         }
         if (head.getNext() != null) {
             Node<T> current = head.getNext();
-            while (current.getItem() != obj) {
+            while (current != null && current.getItem() != obj) {
                 current = current.getNext();
             }
             if (current == tail) {
@@ -121,36 +120,36 @@ public class DoubleLL<T> {
 //      }
 //  }
     
-//    /**
-//     * Gets the node 
-//     * 
-//     * @param location
-//     *       The location we have 
-//     * @return Node
-//     *        The node that exists at 
-//     *        the location
-//     */
-//    public Node getNode(int location) {
-//        if (location > size) {
-//        	return null;
-//        }
-//    	Node current = head.getNext();
-//    	for (int i = 0; i < location; i++) {
-//            current = current.getNext();
-//        }
-//    	return current;
-//    }
+    /**
+     * Gets the node 
+     * 
+     * @param location
+     *       The location we have 
+     * @return Node
+     *        The node that exists at 
+     *        the location
+     */
+    public Node getNode(int location) {
+        if (location > size) {
+        	return null;
+        }
+    	Node current = head.getNext();
+    	for (int i = 0; i < location; i++) {
+            current = current.getNext();
+        }
+    	return current;
+    }
     
-//    /**
-//     * Prints out all the nodes in the DoubleLL
-//     */
-//    public void print() {
-//        System.out.println("FreeBlock List:");
-//        Node curr = head.getNext();
-//        while (curr != null) {
-//            System.out.println(curr.getItem());
-//        }
-//    }
+    /**
+     * Prints out all the nodes in the DoubleLL
+     */
+    public void print() {
+        System.out.println("FreeBlock List:");
+        Node curr = head.getNext();
+        while (curr != null) {
+            System.out.println(curr.getItem());
+        }
+    }
     
 
 }
