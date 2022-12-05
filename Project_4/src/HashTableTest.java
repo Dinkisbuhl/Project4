@@ -3,6 +3,7 @@ import junit.framework.TestCase;
 public class HashTableTest extends TestCase {
 
     HashTable hT;
+    Handle basicHandle;
 
     /**
      * Sets up the Node for the
@@ -10,6 +11,7 @@ public class HashTableTest extends TestCase {
      */
     public void setUp() {
         hT = new HashTable(10);
+        basicHandle = new Handle(0);
     }
 
 
@@ -50,10 +52,10 @@ public class HashTableTest extends TestCase {
         String str1 = "something";
         String str2 = "thing";
         String str3 = "";
-        hT.hashInsert(str1, str1);
+        hT.hashInsert(str1, basicHandle);
         assertFalse(hT.hashSearch(str2));
         assertTrue(hT.hashSearch(str1));
-        hT.hashInsert(str2, str2);
+        hT.hashInsert(str2, basicHandle);
         assertTrue(hT.hashSearch(str2));
     }
 
@@ -62,10 +64,10 @@ public class HashTableTest extends TestCase {
         hT = new HashTable(10);
         String str1 = "idk";
         String str2 = "sigh";
-        hT.hashInsert(str1, str1);
+        hT.hashInsert(str1, basicHandle);
         assertFalse(hT.hashSearch(str2));
         assertTrue(hT.hashSearch(str1));
-        hT.hashInsert(str2, str2);
+        hT.hashInsert(str2, basicHandle);
         assertTrue(hT.hashSearch(str2));
         assertEquals(7, hT.sFoldHash(str1));
         assertEquals(7, hT.sFoldHash(str2));
@@ -78,15 +80,15 @@ public class HashTableTest extends TestCase {
         String str2 = "thing";
         String str3 = "idk";
         String str4 = "keep it up";
-        hT.hashInsert(str1, str1);
+        hT.hashInsert(str1, basicHandle);
         assertTrue(hT.hashSearch(str1));
-        hT.hashInsert(str2, str2);
+        hT.hashInsert(str2, basicHandle);
         assertTrue(hT.hashSearch(str2));
-        hT.hashInsert(str3, str3);
+        hT.hashInsert(str3, basicHandle);
         assertTrue(hT.hashSearch(str3));
         assertEquals(hT.getTableSize(), 5);
 
-        hT.hashInsert(str4, str4);
+        hT.hashInsert(str4, basicHandle);
         assertTrue(hT.hashSearch(str4));
         assertEquals(hT.getTableSize(), 10);
     }
@@ -95,7 +97,7 @@ public class HashTableTest extends TestCase {
     public void testRemove() {
         hT = new HashTable(5);
         String str1 = "something";
-        hT.hashInsert(str1, str1);
+        hT.hashInsert(str1, basicHandle);
         assertTrue(hT.hashSearch(str1));
         assertTrue(hT.hashRemove(str1));
         assertFalse(hT.hashSearch(str1));
@@ -110,24 +112,24 @@ public class HashTableTest extends TestCase {
         String str4 = "keep it up";
         String str5 = "sigh";
         String str6 = "e";
-        hT.hashInsert(str1, str1);
+        hT.hashInsert(str1, basicHandle);
         assertTrue(hT.hashSearch(str1));
         assertTrue(hT.hashRemove(str1));
         assertFalse(hT.hashSearch(str1));
 
-        hT.hashInsert(str2, str2);
+        hT.hashInsert(str2, basicHandle);
         assertTrue(hT.hashSearch(str2));
-        hT.hashInsert(str3, str3);
+        hT.hashInsert(str3, basicHandle);
         assertTrue(hT.hashSearch(str3));
-        hT.hashInsert(str4, str4);
+        hT.hashInsert(str4, basicHandle);
         assertTrue(hT.hashSearch(str4));
-        hT.hashInsert(str6, str6);
+        hT.hashInsert(str6, basicHandle);
         assertTrue(hT.hashSearch(str6));
 
         assertEquals(hT.getTableSize(), 10);
         assertFalse(hT.hashSearch(str1));
 
-        hT.hashInsert(str5, str5);
+        hT.hashInsert(str5, basicHandle);
         assertTrue(hT.hashSearch(str5));
         assertTrue(hT.hashRemove(str3));
         assertFalse(hT.hashSearch(str3));
