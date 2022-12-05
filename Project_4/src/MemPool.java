@@ -111,6 +111,8 @@ public class MemPool {
         // and update it's position, and then copy over the bytes from lenBytes
         // and then bytes in that order
 
+        int oldPos = bestFit.getPosition();
+        
         if (bestFit.getSize() == totalLength) {
             freelist.delete(bestFit);
         }
@@ -120,11 +122,13 @@ public class MemPool {
             FreeBlock newBlock = new FreeBlock(newPos, newSize);
             freelist.getNode(bestFitIndex).setItem(newBlock);
         }
-
+        
         // Adds the string bytes to the
         // byte[]
         int j = 0;
-        for (int i = block.getPosition(); i < block.getPosition() + leng; i++) {
+        data[oldPos] = lenBytes[0];
+        data[oldPos + 1] = lenBytes[1];
+        for (int i = oldPos + 2; i < oldPos + totalLength; i++) {
             data[i] = bytes[j];
             j++;
         }
