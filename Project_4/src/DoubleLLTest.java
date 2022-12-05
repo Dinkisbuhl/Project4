@@ -1,4 +1,4 @@
-import junit.framework.TestCase;
+import student.TestCase;
 
 /**
  * Tests the methods in the DoubleLL Class

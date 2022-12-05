@@ -23,8 +23,8 @@ public class DoubleLL<T> {
      * Constructor for the DoubleLL
      */
     public DoubleLL() {
-        head = null;
-        tail = null;
+        head = new Node<T>(null);
+        tail = new Node<T>(null);
         size = 0;
     }
     
