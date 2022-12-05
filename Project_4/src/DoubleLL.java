@@ -59,22 +59,6 @@ public class DoubleLL<T> {
         size++;
     	
     }
-    
-    /**
-     * Updates the DoubleLL to get rid of 
-     * any nodes with value of 0     
-     */
-    @SuppressWarnings("unchecked")
-	public void update() {
-        Node curr = head.next;
-        while (curr != null) {
-            if ((int)curr.getItem() == 0) {
-                delete((T)curr.getItem());
-                break;
-            }
-            curr = curr.getNext();
-        }
-    }
 
     /**
      * Deletes the object 
@@ -99,6 +83,43 @@ public class DoubleLL<T> {
             current.getNext().setPrev(current.getPrev());
         }
     }
+
+    /**
+     * Returns the size of the DoubleLL
+     * 
+     * @return int
+     *        The size of the DoubleLL
+     */
+    public int getSize() {
+        return size;
+    }
+    
+    /**
+     * Changes the size to a new value
+     * ONLY FOR TESTING
+     * 
+     * @param s
+     *       The new size
+     */
+    public void setSize(int s) {
+        size = s;
+    }
+    
+//  /**
+//   * Updates the DoubleLL to get rid of 
+//   * any nodes with value of 0     
+//   */
+//  @SuppressWarnings("unchecked")
+//	public void update() {
+//      Node curr = head.next;
+//      while (curr != null) {
+//          if ((int)curr.getItem() == 0) {
+//              delete((T)curr.getItem());
+//              break;
+//          }
+//          curr = curr.getNext();
+//      }
+//  }
     
 //    /**
 //     * Gets the node 
@@ -119,16 +140,6 @@ public class DoubleLL<T> {
 //        }
 //    	return current;
 //    }
-
-    /**
-     * Returns the size of the DoubleLL
-     * 
-     * @return int
-     *        The size of the DoubleLL
-     */
-    public int getSize() {
-        return size;
-    }
     
 //    /**
 //     * Prints out all the nodes in the DoubleLL
@@ -140,17 +151,6 @@ public class DoubleLL<T> {
 //            System.out.println(curr.getItem());
 //        }
 //    }
-    
-    /**
-     * Changes the size to a new value
-     * ONLY FOR TESTING
-     * 
-     * @param s
-     *       The new size
-     */
-    public void setSize(int s) {
-        size = s;
-    }
     
 
 }

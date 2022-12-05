@@ -29,17 +29,17 @@ public class DoubleLLTest extends TestCase {
         assertEquals(dll.getSize(), 2);
     }
     
-    /**
-     * Tests the update() method
-     */
-    public void testUpdate() {
-        dll.insert(1);
-        assertEquals(dll.getSize(), 1);
-        dll.insert(0);
-        assertEquals(dll.getSize(), 2);
-        dll.update();
-        assertEquals(dll.getSize(), 1);
-    }
+//    /**
+//     * Tests the update() method
+//     */
+//    public void testUpdate() {
+//        dll.insert(1);
+//        assertEquals(dll.getSize(), 1);
+//        dll.insert(0);
+//        assertEquals(dll.getSize(), 2);
+//        dll.update();
+//        assertEquals(dll.getSize(), 1);
+//    }
     
     /**
      * Tests the delete() method
