@@ -53,7 +53,7 @@ public class MemPoolTest extends TestCase {
         
         dllist.setSize(0);
         tMP.insert("First");
-        assertEquals(tMP.getFreeList().getSize(), 2);
+        assertEquals(tMP.getFreeList().getSize(), 1);
         
         assertEquals(((FreeBlock) tMP.getFreeList().getNode(0).getItem()).getPosition(), 8);
     }

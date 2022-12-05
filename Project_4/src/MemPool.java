@@ -30,7 +30,7 @@ public class MemPool {
     }
     
     /**
-     * Gets the freelist from the MemPool
+     * Gets the FreeList from the MemPool
      * 
      * @return
      *        The FreeList of the MemPool
@@ -67,7 +67,6 @@ public class MemPool {
         // Adds a FreeBlock showing the free space
         // that was used up
         FreeBlock block = (FreeBlock) freelist.getNode(0).getItem();
-        block.setPosition(leng + 2 + 1);
         
         // Adds the string bytes to the 
         // byte[]
@@ -76,6 +75,9 @@ public class MemPool {
             data[i] = bytes[j];
             j++;
         }
+        
+        // Updates the freeblock
+        block.setPosition(leng + 2 + 1);
         
     }
 
@@ -111,11 +113,6 @@ public class MemPool {
             }
         }
         
-        // Empties the byte[] 
-        for (int i = startingLocation; i < startingLocation + leng; i++) {
-            data[i] = 0;
-        }
-        
         // Adds a FreeBlock to the FreeList
         if (startingLocation == -1) {
             System.out.println("The record doesn't exist in the MemPool");
@@ -124,6 +121,11 @@ public class MemPool {
         	FreeBlock newFreeBlock = new FreeBlock(startingLocation, leng);
             freelist.insert(newFreeBlock);
             merge();
+            
+            // Empties the byte[] 
+            for (int i = startingLocation; i < startingLocation + leng; i++) {
+                data[i] = 0;
+            }
         }
         
     }
