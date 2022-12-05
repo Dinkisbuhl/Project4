@@ -48,8 +48,6 @@ public class DoubleLL<T> {
             addNode.setPrev(head);
             tail.setPrev(addNode);
             addNode.setNext(tail);
-            System.out.println(size);
-            size++;
         }
         else {
             Node newNext = head.getNext().getNext();
@@ -59,8 +57,6 @@ public class DoubleLL<T> {
             newNext.setPrev(addNode);
         }
         size++;
-        System.out.println("here2");
-        System.out.println(size);
     }
 
 

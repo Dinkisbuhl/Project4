@@ -23,7 +23,6 @@ public class DoubleLLTest extends TestCase {
      */
     public void testInsert() {
     	assertEquals(dll.getSize(), 0);
-    	System.out.println("before insert");
         dll.insert(1);
         assertEquals(dll.getSize(), 1);
         dll.insert(2);
@@ -46,7 +45,7 @@ public class DoubleLLTest extends TestCase {
      * Tests the delete() method
      */
     public void testDelete() {
-        /*
+
         dll.insert(1);
         dll.insert(2);
         dll.insert(3);
@@ -65,7 +64,7 @@ public class DoubleLLTest extends TestCase {
         assertEquals(dll.getSize(), 2);
         dll.delete(3);
         assertEquals(dll.getSize(), 1);
-        */
+
     }
     
     /**
