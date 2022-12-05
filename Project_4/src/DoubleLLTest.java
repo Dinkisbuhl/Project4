@@ -83,8 +83,6 @@ public class DoubleLLTest extends TestCase {
      */
     public void testSetSize() {
     	assertEquals(dll.getSize(), 0);
-        dll.insert(1);
-        assertEquals(dll.getSize(), 1);
         dll.setSize(10);
         assertEquals(dll.getSize(), 10);
     }

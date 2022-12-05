@@ -73,7 +73,7 @@ public class DoubleLL<T> {
         }
         if (head.getNext() != null) {
             Node<T> current = head.getNext();
-            while (current.getItem() != obj) {
+            while (current != null && current.getItem() != obj) {
                 current = current.getNext();
             }
             if (current == tail) {
@@ -106,45 +106,43 @@ public class DoubleLL<T> {
     public void setSize(int s) {
         size = s;
     }
-
-// /**
-// * Updates the DoubleLL to get rid of
-// * any nodes with value of 0
-// */
-// @SuppressWarnings("unchecked")
-// public void update() {
-// Node curr = head.next;
-// while (curr != null) {
-// if ((int)curr.getItem() == 0) {
-// delete((T)curr.getItem());
-// break;
-// }
-// curr = curr.getNext();
-// }
-// }
-
-
+    
+//  /**
+//   * Updates the DoubleLL to get rid of 
+//   * any nodes with value of 0     
+//   */
+//  @SuppressWarnings("unchecked")
+//	public void update() {
+//      Node curr = head.next;
+//      while (curr != null) {
+//          if ((int)curr.getItem() == 0) {
+//              delete((T)curr.getItem());
+//              break;
+//          }
+//          curr = curr.getNext();
+//      }
+//  }
+    
     /**
-     * Gets the node
+     * Gets the node 
      * 
      * @param location
-     *            The location we have
+     *       The location we have 
      * @return Node
-     *         The node that exists at
-     *         the location
+     *        The node that exists at 
+     *        the location
      */
     public Node getNode(int location) {
         if (location > size) {
-            return null;
+        	return null;
         }
-        Node current = head.getNext();
-        for (int i = 0; i < location; i++) {
+    	Node current = head.getNext();
+    	for (int i = 0; i < location; i++) {
             current = current.getNext();
         }
-        return current;
+    	return current;
     }
-
-
+    
     /**
      * Prints out all the nodes in the DoubleLL
      */
@@ -155,5 +153,6 @@ public class DoubleLL<T> {
             System.out.println(curr.getItem());
         }
     }
+    
 
 }
