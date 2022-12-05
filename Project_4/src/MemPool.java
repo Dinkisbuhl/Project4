@@ -79,21 +79,26 @@ public class MemPool {
         int totalLength = leng + 2;
 
         FreeBlock bestFit = new FreeBlock(-1, -1);
+        int bestFitIndex = -1;
         boolean first = true;
 
         // find the smallest size freeblock, and set bestFit equal to it
         int freeListLen = freelist.getSize();
         for (int i = 0; i < freeListLen; i++) {
-            FreeBlock curr = (FreeBlock)freelist.getNode(i).getItem();
+            Node currNode = freelist.getNode(i);
+            FreeBlock curr = (FreeBlock)currNode.getItem();
             if (curr.getSize() >= totalLength) {
                 if (first) {
                     bestFit = curr;
+                    bestFitIndex = i;
                     first = false;
                 }
                 else if (curr.getSize() < bestFit.getSize()) {
                     bestFit = curr;
+                    bestFitIndex = i;
                 }
             }
+            currNode = currNode.next;
         }
 
         // if we still are left with the original bestFit freeblock, then we
@@ -102,18 +107,19 @@ public class MemPool {
             expand();
         }
 
-        // from here we must now subtract space from the freeblock we've found,
-        // or make a new freeblock out of the space we've found idk, and then
-        // copy over the bytes from lenBytes and then bytes in that order
-        
-        
-        // end of my changes so far
-        
+        // from here we must now subtract space from the freeblock we've found
+        // and update it's position, and then copy over the bytes from lenBytes
+        // and then bytes in that order
 
-        // Adds a FreeBlock showing the free space
-        // that was used up
-        FreeBlock block = (FreeBlock)freelist.getNode(0).getItem();
-        block.setPosition(leng + 2 + 1);
+        if (bestFit.getSize() == totalLength) {
+            freelist.delete(bestFit);
+        }
+        else {
+            int newSize = bestFit.getSize() - totalLength;
+            int newPos = bestFit.getPosition() + totalLength;
+            FreeBlock newBlock = new FreeBlock(newPos, newSize);
+            freelist.getNode(bestFitIndex).setItem(newBlock);
+        }
 
         // Adds the string bytes to the
         // byte[]
@@ -134,7 +140,7 @@ public class MemPool {
      */
     public void remove(String str) {
 
-    	// Converts the string input to bytes
+        // Converts the string input to bytes
         byte[] bytes = str.getBytes();
         short leng = (short)bytes.length; // a short is 2 bytes
         byte[] lenBytes = new byte[2];
@@ -142,7 +148,7 @@ public class MemPool {
         lenBytes[1] = (byte)(leng);
         int totalLength = leng + 2;
 
-        // Finds the starting location of the string to remove 
+        // Finds the starting location of the string to remove
         int startingLocation = -1;
         for (int i = 0; i < bytes.length - 2 - totalLength; i++) {
             if (bytes[i] == lenBytes[0] && bytes[i + 1] == lenBytes[1]) {
@@ -150,27 +156,29 @@ public class MemPool {
                 int j = 0;
                 if (data[i + 2] == bytes[j]) {
                     for (int k = 0; k < totalLength; i++) {
-                   	    if (data[i + 2 + k] != bytes[j + k]) {
-                   	        break;
-                   	    }
+                        if (data[i + 2 + k] != bytes[j + k]) {
+                            break;
+                        }
                     }
                 }
             }
             startingLocation = -1;
         }
 
-        // Adds a FreeBlock to the FreeList 
+        // Adds a FreeBlock to the FreeList
         if (startingLocation == -1) {
             System.out.println("The record doesn't exist in the MemPool");
         }
         else {
-            // Empties the byte[] 
-            for (int i = startingLocation; i < startingLocation + totalLength; i++) {
+            // Empties the byte[]
+            for (int i = startingLocation; i < startingLocation
+                + totalLength; i++) {
                 data[i] = 0;
             }
 
-            // Puts a FreeBlock into the FreeList 
-            FreeBlock newFreeBlock = new FreeBlock(startingLocation, totalLength);
+            // Puts a FreeBlock into the FreeList
+            FreeBlock newFreeBlock = new FreeBlock(startingLocation,
+                totalLength);
             freelist.insert(newFreeBlock);
             merge(newFreeBlock);
         }
@@ -208,35 +216,34 @@ public class MemPool {
      * Merges FreeBlocks in the FreeList together
      */
     private void merge(FreeBlock fb) {
-    
+
         int startLoc = fb.getPosition();
         int sizeOfFreeBloc = fb.getSize();
-        for (int i = 0; i < freelist.getSize(); i++) { 
+        for (int i = 0; i < freelist.getSize(); i++) {
             FreeBlock fB = (FreeBlock)freelist.getNode(i).getItem();
-            
-            // Merge the FreeBlock with the FreeBlock behind it 
-            if ()
-            
-            // Merge the FreeBlock with the FreeBlock in front of it 
-            
-            
-            // Merge the FreeBlcok with the FreeBlocks in front of it and behind it 
-            
+
+            // Merge the FreeBlock with the FreeBlock behind it
+
+            // Merge the FreeBlock with the FreeBlock in front of it
+
+            // Merge the FreeBlcok with the FreeBlocks in front of it and behind
+            // it
+
         }
 
-//    	for (int i = 0; i < freelist.getSize() - 1; i++) {
-//            FreeBlock fb = (FreeBlock)freelist.getNode(i).getItem();
-//            for (int j = 1; j < freelist.getSize(); i++) {
-//                FreeBlock fb1 = (FreeBlock)freelist.getNode(j).getItem();
-//                if (fb.getPosition() + fb.getSize() == fb1.getPosition()) {
-//                    FreeBlock newFB = new FreeBlock(fb.getPosition(), fb
-//                        .getSize() + fb1.getSize());
-//                    freelist.delete(fb);
-//                    freelist.delete(fb1);
-//                    freelist.insert(newFB);
-//                }
-//            }
-//        }
+// for (int i = 0; i < freelist.getSize() - 1; i++) {
+// FreeBlock fb = (FreeBlock)freelist.getNode(i).getItem();
+// for (int j = 1; j < freelist.getSize(); i++) {
+// FreeBlock fb1 = (FreeBlock)freelist.getNode(j).getItem();
+// if (fb.getPosition() + fb.getSize() == fb1.getPosition()) {
+// FreeBlock newFB = new FreeBlock(fb.getPosition(), fb
+// .getSize() + fb1.getSize());
+// freelist.delete(fb);
+// freelist.delete(fb1);
+// freelist.insert(newFB);
+// }
+// }
+// }
     }
 
 // /**
