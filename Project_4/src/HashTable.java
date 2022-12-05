@@ -10,14 +10,16 @@ public class HashTable {
         hT = new HashRecord[tableSize];
         fullness = 0;
 
+        Handle emptyHandle = new Handle(-1);
+        
         for (int i = 0; i < tableSize; i++) {
-            hT[i] = new HashRecord("", "");
+            hT[i] = new HashRecord("", emptyHandle);
         }
     }
 
 
     // Insert e into hash table HT
-    public void hashInsert(String K, String e) {
+    public void hashInsert(String K, Handle h) {
         if (fullness != 0) {
             if ((tableSize / fullness) < 2) {
                 extendTable();
@@ -28,20 +30,20 @@ public class HashTable {
         int pos = home;
 
         if (hT[pos] == null) {
-            hT[pos] = new HashRecord(K, e);
+            hT[pos] = new HashRecord(K, h);
             fullness++;
             return;
         }
         else if (hT[pos].getKey().equals(EMPTYKEY)) {
             hT[pos].setKey(K);
-            hT[pos].setValue(e);
+            hT[pos].setHandle(h);
             fullness++;
             return;
         }
         else {
             pos = probe(K, home);
             hT[pos].setKey(K);
-            hT[pos].setValue(e);
+            hT[pos].setHandle(h);
             fullness++;
             return;
         }
@@ -148,15 +150,17 @@ public class HashTable {
 
         hT = new HashRecord[tableSize];
         fullness = 0;
+        
+        Handle emptyHandle = new Handle(-1);
 
         for (int i = 0; i < tableSize; i++) {
-            hT[i] = new HashRecord("", "");
+            hT[i] = new HashRecord("", emptyHandle);
         }
 
         for (int i = 0; i < oldSize; i++) {
             HashRecord temp = oldTable[i];
             if (temp != null) {
-                hashInsert(temp.getValue(), temp.getKey());
+                hashInsert(temp.getKey(), temp.getHandle());
             }
         }
     }
@@ -197,11 +201,11 @@ public class HashTable {
 
     private static class HashRecord {
         String key;
-        String value;
+        Handle handle;
 
-        public HashRecord(String k, String v) {
+        public HashRecord(String k, Handle h) {
             key = k;
-            value = v;
+            handle = h;
         }
 
 
@@ -210,8 +214,8 @@ public class HashTable {
         }
 
 
-        private String getValue() {
-            return value;
+        private Handle getHandle() {
+            return handle;
         }
 
 
@@ -220,8 +224,8 @@ public class HashTable {
         }
 
 
-        private void setValue(String v) {
-            value = v;
+        private void setHandle(Handle h) {
+            handle = h;
         }
     }
 }

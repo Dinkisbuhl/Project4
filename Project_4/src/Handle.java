@@ -6,8 +6,8 @@ public class Handle {
     /**
      * Constructor
      */
-    public Handle() {
-        posInMP = 0;
+    public Handle(int pos) {
+        posInMP = pos;
     }
     
     /**
