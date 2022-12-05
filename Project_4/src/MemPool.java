@@ -62,7 +62,29 @@ public class MemPool {
         // Gets the bytes and the length of 
         // the input string
         byte[] bytes = str.getBytes();
-        int leng = bytes.length + 2; 
+        short leng = (short)bytes.length; // a short is 2 bytes
+        byte[] lenBytes = new byte[2];
+        lenBytes[0] = (byte)(leng >> 8);
+        lenBytes[1] = (byte)(leng);
+        
+        int totalLength = leng + 2;
+        
+        FreeBlock bestFit = new FreeBlock(-1, -1);
+        boolean first = true;
+        
+        //find the smallest size freeblock, and set bestFit equal to it
+        for(int i = 0; i < freelist.getSize(); i++) {
+            FreeBlock curr = (FreeBlock) freelist.getNode(i).getItem();
+            if(curr.getSize() >= totalLength) {
+                if (first) {
+                    bestFit = curr;
+                    first = false;
+                }
+                else if(curr.getSize() < bestFit.getSize()) {
+                    bestFit = curr;
+                }
+            }
+        }
         
         // Adds a FreeBlock showing the free space
         // that was used up
