@@ -157,7 +157,7 @@ public class DoubleLL<T> {
                 newLast.setNext(tail);
                 tail.setPrev(newLast);
             }
-            else if (current.getNext() != null && current.getPrev() != null) {
+            else {
                 Node<T> p = current.getPrev();
                 Node<T> n = current.getNext();
                 p.setNext(n);
