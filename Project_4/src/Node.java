@@ -10,15 +10,15 @@ public class Node<T> {
     /**
      * The item of the Node
      */
-    T item;
+    private T item;
     /**
      * The node behind the current node
      */
-    Node<T> prev;
+    private Node<T> prev;
     /**
      * The node in front of the current node
      */
-    Node<T> next;
+    private Node<T> next;
 
     
     /**

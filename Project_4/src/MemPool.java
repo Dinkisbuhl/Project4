@@ -172,8 +172,6 @@ public class MemPool {
 
         int lengthOfBytes = (lenBytes[0] & 0xFF) << 8 | (lenBytes[1] & 0xFF);
 
-        byte[] bytes = new byte[lengthOfBytes];
-
         // just because I like it better this way, zero out the data
         for (int i = startPos; i < lengthOfBytes + 2; i++) {
             data[i] = 0;
@@ -188,29 +186,50 @@ public class MemPool {
         else {
             FreeBlock before = new FreeBlock(-1, -1);
             FreeBlock after = new FreeBlock(-1, -1);
+            
+            int bInd = -1;
+            int aInd = -1;
+            int thisInd = 0;
 
             for (int i = 0; i < freeListLen; i++) {
                 FreeBlock curr = (FreeBlock)freelist.getNode(i).getItem();
 
                 if (curr.getPosition() + curr.getSize() == startPos) {
                     before = curr;
+                    bInd = i;
                 }
                 if (startPos + lengthOfBytes + 2 == curr.getPosition()) {
                     after = curr;
+                    aInd = i;
+                }
+                
+                if (curr.getPosition() < startPos) {
+                    thisInd = i;
                 }
             }
 
             if (before.getPosition() != -1 && after.getPosition() != -1) {
-
+                int newSize = before.getSize() + lengthOfBytes + 2 + after.getSize();
+                int newPos = before.getPosition();
+                FreeBlock newBlock = new FreeBlock(newPos, newSize);
+                freelist.getNode(bInd).setItem(newBlock);
+                freelist.delete(after);
             }
             else if (before.getPosition() != -1) {
-
+                int newSize = before.getSize() + lengthOfBytes + 2;
+                int newPos = before.getPosition();
+                FreeBlock newBlock = new FreeBlock(newPos, newSize);
+                freelist.getNode(bInd).setItem(newBlock);
             }
             else if (after.getPosition() != -1) {
-
+                int newSize = lengthOfBytes + 2 + after.getSize();
+                int newPos = startPos;
+                FreeBlock newBlock = new FreeBlock(newPos, newSize);
+                freelist.getNode(aInd).setItem(newBlock);
             }
             else {
-                
+                FreeBlock newBlock = new FreeBlock(startPos, lengthOfBytes + 2);
+                freelist.insert(newBlock, thisInd);
             }
         }
     }
