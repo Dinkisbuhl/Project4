@@ -64,29 +64,6 @@ public class DoubleLL<T> {
         size++;
     }
     
-    public void insert(T obj, int ind) {
-        if (obj == null) {
-            return;
-        }
-        Node<T> addNode = new Node<T>(obj);
-        if (size == 0) {
-            head.setNext(addNode);
-            addNode.setPrev(head);
-            tail.setPrev(addNode);
-            addNode.setNext(tail);
-        }
-        else {
-            Node<T> curr = head.getNext();
-            for(int i = 0; i < ind; i++) {
-                curr = curr.getNext();
-            }
-            curr.getPrev().setNext(addNode);
-            addNode.setPrev(curr.getPrev());
-            addNode.setNext(curr);
-            curr.setPrev(addNode);
-        }
-        size++;
-    }
 
     /**
      * Inserts an object into a specific position

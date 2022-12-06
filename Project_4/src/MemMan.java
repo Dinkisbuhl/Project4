@@ -56,8 +56,8 @@ public class MemMan {
             return;
         }
 
-        hTSong = new HashTable(hashSize);
-        hTArtist = new HashTable(hashSize);
+        hTSong = new HashTable(hashSize, "Song");
+        hTArtist = new HashTable(hashSize, "Artist");
         DoubleLL<FreeBlock> dll = new DoubleLL<FreeBlock>();
         mpool = new MemPool(bytes, dll);// Add instantiation of MemPool object here
         World world = new World(hTSong, hTArtist, mpool);
@@ -115,11 +115,13 @@ public class MemMan {
                         String removeWhat = cScanner2.next();
                         if (removeWhat.equals("song")) {
                             String removeSong = cScanner2.next();
-                            // TO DO
+                            
+                            world.remove(hTSong, removeSong);
                         }
                         else if (removeWhat.equals("artist")) {
                        	    String removeArtist = cScanner2.next();
-                            // TO DO
+                            
+                            world.remove(hTArtist, removeArtist);
                         }
                     }
                 }

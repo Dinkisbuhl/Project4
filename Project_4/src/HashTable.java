@@ -9,6 +9,7 @@ public class HashTable {
 
     private int tableSize;
     private int fullness;
+    private String name;
     private HashRecord[] hT;
     private String EMPTYKEY = "";
 
@@ -18,8 +19,9 @@ public class HashTable {
      * @param s
      *       The size of the HashTable
      */
-    public HashTable(int s) {
+    public HashTable(int s, String n) {
         tableSize = s;
+        name = n;
         hT = new HashRecord[tableSize];
         fullness = 0;
 
@@ -79,16 +81,17 @@ public class HashTable {
      *       True if the record is removed, and 
      *       false otherwise 
      */
-    public boolean hashRemove(String K) {
+    public Handle hashRemove(String K) {
         // a tombstone will be a null HashRecord
         int pos = posSearch(K);
         if (pos == -1) {
-            return false;
+            return null;
         }
         else {
+            Handle retH = hT[pos].getHandle();
             hT[pos] = null;
             fullness--;
-            return true;
+            return retH;
         }
     }
 
@@ -217,6 +220,8 @@ public class HashTable {
                 hashInsert(temp.getKey(), temp.getHandle());
             }
         }
+        
+        System.out.println(name + " hash table size doubled");
     }
 
     /**
@@ -255,6 +260,14 @@ public class HashTable {
      */
     public int getTableSize() {
         return tableSize;
+    }
+    
+    /**
+     * Returns the name of the table
+     * @return
+     */
+    public String getName() {
+        return name;
     }
 
     

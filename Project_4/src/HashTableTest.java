@@ -23,7 +23,7 @@ public class HashTableTest extends TestCase {
      * test methods
      */
     public void setUp() {
-        hT = new HashTable(10);
+        hT = new HashTable(10, "Artist");
         basicHandle = new Handle(0);
     }
 
@@ -32,7 +32,7 @@ public class HashTableTest extends TestCase {
      * circumstances
      */
     public void testSfoldHash() {
-        hT = new HashTable(10);
+        hT = new HashTable(10, "Artist");
         String str1 = "something";
         String str2 = "thing";
         String str3 = "idk";
@@ -49,7 +49,7 @@ public class HashTableTest extends TestCase {
      * Tests the sFold method for a filled up HashTable
      */
     public void testSfoldHash2() {
-        hT = new HashTable(5);
+        hT = new HashTable(5, "Artist");
         String str1 = "something";
         String str2 = "thing";
         String str3 = "idk";
@@ -69,7 +69,7 @@ public class HashTableTest extends TestCase {
      * circumstances
      */
     public void testInsert() {
-        hT = new HashTable(10);
+        hT = new HashTable(10, "Artist");
         String str1 = "something";
         String str2 = "thing";
         String str3 = "";
@@ -85,7 +85,7 @@ public class HashTableTest extends TestCase {
      * their size
      */
     public void testInsert2() {
-        hT = new HashTable(10);
+        hT = new HashTable(10, "Artist");
         String str1 = "idk";
         String str2 = "sigh";
         hT.hashInsert(str1, basicHandle);
@@ -101,7 +101,7 @@ public class HashTableTest extends TestCase {
      * Tests the extendTable() method
      */
     public void testExtendTable() {
-        hT = new HashTable(5);
+        hT = new HashTable(5, "Artist");
         String str1 = "something";
         String str2 = "thing";
         String str3 = "idk";
@@ -124,11 +124,11 @@ public class HashTableTest extends TestCase {
      * normal circumstances
      */
     public void testRemove() {
-        hT = new HashTable(5);
+        hT = new HashTable(5, "Artist");
         String str1 = "something";
         hT.hashInsert(str1, basicHandle);
         assertTrue(hT.hashSearch(str1));
-        assertTrue(hT.hashRemove(str1));
+        assertEquals(hT.hashRemove(str1), basicHandle);
         assertFalse(hT.hashSearch(str1));
     }
 
@@ -137,7 +137,7 @@ public class HashTableTest extends TestCase {
      * the table 
      */
     public void testRemove2() {
-        hT = new HashTable(5);
+        hT = new HashTable(5, "Artist");
         String str1 = "something";
         String str2 = "thing";
         String str3 = "idk";
@@ -146,7 +146,7 @@ public class HashTableTest extends TestCase {
         String str6 = "e";
         hT.hashInsert(str1, basicHandle);
         assertTrue(hT.hashSearch(str1));
-        assertTrue(hT.hashRemove(str1));
+        assertEquals(hT.hashRemove(str1), basicHandle);
         assertFalse(hT.hashSearch(str1));
 
         hT.hashInsert(str2, basicHandle);
@@ -163,10 +163,10 @@ public class HashTableTest extends TestCase {
 
         hT.hashInsert(str5, basicHandle);
         assertTrue(hT.hashSearch(str5));
-        assertTrue(hT.hashRemove(str3));
+        assertEquals(hT.hashRemove(str3), basicHandle);
         assertFalse(hT.hashSearch(str3));
         assertTrue(hT.hashSearch(str5));
-        assertTrue(hT.hashRemove(str5));
+        assertEquals(hT.hashRemove(str5), basicHandle);
         assertFalse(hT.hashSearch(str5));
     }
 }

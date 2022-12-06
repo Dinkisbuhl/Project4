@@ -31,7 +31,10 @@ public class World {
 
             Handle nH = mpool.insert(input);
             hTSong.hashInsert(input, nH);
+            System.out.println("|" + input + "| is added to the song database");
         }
+        System.out.println("|" + input
+            + "| duplicates a record already in the song database");
     }
 
 
@@ -45,7 +48,11 @@ public class World {
 
             Handle nH = mpool.insert(input);
             hTArtist.hashInsert(input, nH);
+            System.out.println("|" + input
+                + "| is added to the artist database");
         }
+        System.out.println("|" + input
+            + "| duplicates a record already in the artist database");
     }
 
 
@@ -54,8 +61,28 @@ public class World {
      */
     public void remove(HashTable h, String input) {
 
-        // Get len from input
-        int length = 0; // change later
+        if (h.getName().equals("Artist")) {
+            if (!hTArtist.hashSearch(input)) {
+                Handle artistHandle = hTArtist.hashRemove(input);
+                mpool.remove(artistHandle);
+                
+                System.out.println("|" + input
+                    + "| is removed from the artists database");
+            }
+            System.out.println("|" + input
+                + "| does not exist in the artists database"); 
+        }  
+        else {
+            if (!hTSong.hashSearch(input)) {
+                Handle songHandle = hTSong.hashRemove(input);
+                mpool.remove(songHandle);
+                
+                System.out.println("|" + input
+                    + "| is removed from the song database");
+            }
+            System.out.println("|" + input
+                + "| does not exist in the song database"); 
+        }
 
     }
 
