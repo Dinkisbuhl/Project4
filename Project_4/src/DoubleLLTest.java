@@ -1,4 +1,6 @@
 import student.TestCase;
+import student.testingsupport.PrintStreamWithHistory;
+
 
 /**
  * Tests the methods in the DoubleLL Class
@@ -15,14 +17,16 @@ public class DoubleLLTest extends TestCase {
      * Sets up the DoubleLL for the test methods
      */
     public void setUp() {
-    	dll = new DoubleLL<Integer>();
+        dll = new DoubleLL<Integer>();
     }
     
     /**
      * Tests the insert() method
      */
     public void testInsert() {
-    	assertEquals(dll.getSize(), 0);
+        assertEquals(dll.getSize(), 0);
+        dll.insert(null);
+        assertEquals(dll.getSize(), 0);
         dll.insert(1);
         assertEquals(dll.getSize(), 1);
         dll.insert(2);
@@ -45,6 +49,10 @@ public class DoubleLLTest extends TestCase {
      * Tests the delete() method
      */
     public void testDelete() {
+        assertEquals(dll.getSize(), 0);
+        dll.delete(null);
+        assertEquals(dll.getSize(), 0);
+        
         dll.insert(1);
         dll.insert(2);
         dll.insert(3);
@@ -52,23 +60,27 @@ public class DoubleLLTest extends TestCase {
         dll.insert(5);
         
         dll.delete(-1);
-        assertEquals(dll.getSize(), 4);
+        assertEquals(dll.getSize(), 5);
         dll.delete(6);
-        assertEquals(dll.getSize(), 4);
+        assertEquals(dll.getSize(), 5);
+        dll.delete(null);
+        assertEquals(dll.getSize(), 5);
         
         dll.delete(1);
-        assertEquals(dll.getSize(), 3);
+        assertEquals(dll.getSize(), 4);
+        
+        // Errors are down here
         dll.delete(5);
-        assertEquals(dll.getSize(), 2);
+        assertEquals(dll.getSize(), 3);
         dll.delete(3);
-        assertEquals(dll.getSize(), 1);
+        assertEquals(dll.getSize(), 2);
     }
     
     /**
      * Tests the getSize() size
      */
     public void testGetSize() {
-    	assertEquals(dll.getSize(), 0);
+        assertEquals(dll.getSize(), 0);
         dll.insert(1);
         assertEquals(dll.getSize(), 1);
         dll.insert(2);
@@ -76,12 +88,121 @@ public class DoubleLLTest extends TestCase {
     }
     
     /**
-     * Tests the setSize() size
+     * Tests the setSize() method
      */
     public void testSetSize() {
-    	assertEquals(dll.getSize(), 0);
+        assertEquals(dll.getSize(), 0);
         dll.setSize(10);
         assertEquals(dll.getSize(), 10);
     }
     
+    /**
+     * Tests the getNode() method
+     */
+    @SuppressWarnings("unchecked")
+	public void testGetNode() {
+        assertEquals(dll.getSize(), 0);
+        Node<Integer> n1 = dll.getNode(1);
+        assertNull(n1);
+        dll.insert(0);
+        assertEquals(dll.getSize(), 1);
+        Node<Integer> n2 = dll.getNode(1);
+        assertNull(n2);
+        
+        Node<Integer> nd = dll.getNode(0);
+        assertEquals(nd.getItem(), 0);
+        
+        dll.insert(1);
+        assertEquals(dll.getSize(), 2);
+        dll.insert(2);
+        assertEquals(dll.getSize(), 3);
+
+        Node<Integer> nd1 = dll.getNode(1);
+        assertEquals(nd1.getItem(), 1);
+
+        Node<Integer> nd2 = dll.getNode(2);
+        assertEquals(nd2.getItem(), 2);
+    }
+    
+    /**
+     * Tests the print() method
+     */
+    public void testPrint() {
+
+    	String[] inpInsert = { "P4TestPrint.txt" };
+        PrintStreamWithHistory sysout = systemOut();
+        dll.print();
+        String history = sysout.getHistory();
+        String outComp = "No FreeBlocks:\r\n" +
+            "FreeBlock List:\r\n" +
+        	"1\r\n" + "Total FreeBlocks: 1" +	
+            "FreeBlock List:\r\n" +
+        	"1\r\n" + "2\r\n" + "Total FreeBlocks: 2" +	
+        	"FreeBlock List:\r\n" +
+        	"1\r\n" + "2\r\n" + "Total FreeBlocks: 2";
+        assertEquals(history, outComp);
+        
+        
+//        sysout = systemOut();
+//        dll.insert(1);
+//        dll.print();
+//        history = sysout.getHistory();
+//        outComp = "FreeBlock List:\r\n" +
+//            "1\r\n" + "Total FreeBlocks: 1";
+//        assertEquals(history, outComp);
+//        
+//        
+//        sysout = systemOut();
+//        dll.insert(2);
+//        dll.print();
+//        history = sysout.getHistory();
+//        outComp = "FreeBlock List:\r\n" +
+//                "1\r\n" + "2\r\n" +
+//                "Total FreeBlocks: 2";
+//        assertEquals(history, outComp);
+//        
+//        
+//        sysout = systemOut();
+//        dll.insert(3);
+//        dll.print();
+//        history = sysout.getHistory();
+//        outComp = "FreeBlock List:\r\n" +
+//                "1\r\n" + "2\r\n" + "3\r\n" +
+//                "Total FreeBlocks: 3";
+//        assertEquals(history, outComp);
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
