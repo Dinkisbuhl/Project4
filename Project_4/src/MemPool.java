@@ -66,7 +66,7 @@ public class MemPool {
      * @param str
      *            The string record being put into the byte[]
      */
-    public void insert(String str) {
+    public Handle insert(String str) {
 
         // Gets the bytes and the length of
         // the input string
@@ -106,7 +106,7 @@ public class MemPool {
             expand();
 
             freeListLen = freelist.getSize();
-            
+
             for (int i = 0; i < freeListLen; i++) {
                 Node currNode = freelist.getNode(i);
                 FreeBlock curr = (FreeBlock)currNode.getItem();
@@ -149,6 +149,10 @@ public class MemPool {
             data[i] = bytes[j];
             j++;
         }
+
+        // create a handle and return it for Hash Table use
+        Handle retHand = new Handle(oldPos);
+        return retHand;
     }
 
 
@@ -159,49 +163,33 @@ public class MemPool {
      *            The string record to be removed from the byte[]
      * 
      */
-    public void remove(String str) {
+    public void remove(Handle ticket) {
 
-        // Converts the string input to bytes
-        byte[] bytes = str.getBytes();
-        short leng = (short)bytes.length; // a short is 2 bytes
+        int startPos = ticket.getPosInMp();
         byte[] lenBytes = new byte[2];
-        lenBytes[0] = (byte)(leng >> 8);
-        lenBytes[1] = (byte)(leng);
-        int totalLength = leng + 2;
+        lenBytes[0] = data[startPos];
+        lenBytes[1] = data[startPos + 1];
 
-        // Finds the starting location of the string to remove
-        int startingLocation = -1;
-        for (int i = 0; i < bytes.length - 2 - totalLength; i++) {
-            if (bytes[i] == lenBytes[0] && bytes[i + 1] == lenBytes[1]) {
-                startingLocation = i;
-                int j = 0;
-                if (data[i + 2] == bytes[j]) {
-                    for (int k = 0; k < totalLength; i++) {
-                        if (data[i + 2 + k] != bytes[j + k]) {
-                            break;
-                        }
-                    }
-                }
-            }
-            startingLocation = -1;
+        int lengthOfBytes = (lenBytes[0] & 0xFF) << 8 | (lenBytes[1] & 0xFF);
+        
+        byte[] bytes = new byte[lengthOfBytes];
+        
+        // just because I like it better this way, zero out the data
+        for(int i = startPos; i < lengthOfBytes + 2; i++) {
+            data[i] = 0;
         }
-
-        // Adds a FreeBlock to the FreeList
-        if (startingLocation == -1) {
-            System.out.println("The record doesn't exist in the MemPool");
+        
+        
+        int freeListLen = freelist.getSize();
+        
+        if (freeListLen == 0) {
+            
         }
         else {
-            // Empties the byte[]
-            for (int i = startingLocation; i < startingLocation
-                + totalLength; i++) {
-                data[i] = 0;
-            }
-
-            // Puts a FreeBlock into the FreeList
-            FreeBlock newFreeBlock = new FreeBlock(startingLocation,
-                totalLength);
-            freelist.insert(newFreeBlock);
-            merge(newFreeBlock);
+            FreeBlock before;
+            FreeBlock after;
+            
+            
         }
 
     }
@@ -237,8 +225,9 @@ public class MemPool {
         else {
             lastBlock = (FreeBlock)freelist.getNode(freelist.getSize() - 1)
                 .getItem();
-            
-            // if the last freeblock includes the space at the end, just expand it
+
+            // if the last freeblock includes the space at the end, just expand
+            // it
             // by initialSize, if not, then instead create a new freeblock
             if (lastBlock.getPosition() + lastBlock.getSize() == oldEnd) {
                 int newSize = lastBlock.getSize() + initialSize;
