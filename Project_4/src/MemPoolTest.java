@@ -56,24 +56,56 @@ public class MemPoolTest extends TestCase {
      * Tests the insert() method
      */
     public void testInsert() {
-        byte[] testBytes = new byte[1];
+        byte[] testBytes = new byte[100000];
         DoubleLL<FreeBlock> dllist = new DoubleLL<FreeBlock>();
         MemPool tMP = new MemPool(testBytes, dllist);
         
-        dllist.setSize(0);
-        tMP.insert("First");
-        assertEquals(tMP.getFreeList().getSize(), 1);
+        tMP.insert("a");
         
-        assertEquals(((FreeBlock) tMP.getFreeList().getNode(0).getItem()).getPosition(), 8);
+        assertEquals(tMP.getFreeList().getSize(), 1);
+        assertEquals(((FreeBlock) tMP.getFreeList().getNode(0).getItem()).getPosition(), 3);
+        
+        byte[] theBytes = tMP.getByteArr();
+        assertEquals(theBytes[0], 0);
+        assertEquals(theBytes[1], 1);
+        assertEquals(theBytes[2], 97);
+        assertEquals(theBytes[3], 0);
+        
+        tMP.insert("something");
+        
+        assertEquals(tMP.getFreeList().getSize(), 1);
+        assertEquals(((FreeBlock) tMP.getFreeList().getNode(0).getItem()).getPosition(), 14);
+    }
+    
+    /**
+     * Tests the insert() method
+     */
+    public void testInsertExpand() {
+        byte[] testBytes = new byte[2];
+        DoubleLL<FreeBlock> dllist = new DoubleLL<FreeBlock>();
+        MemPool tMP = new MemPool(testBytes, dllist);
+        
+        tMP.insert("a");
+        
+        assertEquals(tMP.getFreeList().getSize(), 1);
+        assertEquals(((FreeBlock) tMP.getFreeList().getNode(0).getItem()).getPosition(), 3);
+        
+        byte[] theBytes = tMP.getByteArr();
+        assertEquals(theBytes[0], 0);
+        assertEquals(theBytes[1], 1);
+        assertEquals(theBytes[2], 97);
+        assertEquals(theBytes[3], 0);
+        
+        tMP.insert("something");
+        
+        assertEquals(tMP.getFreeList().getSize(), 1);
+        assertEquals(((FreeBlock) tMP.getFreeList().getNode(0).getItem()).getPosition(), 14);
     }
     
     /**
      * Tests the remove() method
      */
     public void testRemove() {
-        testMP.insert("First");
-        testMP.insert("Second");
-        testMP.insert("Third");
         
         
     }

@@ -207,13 +207,25 @@ public class MemPool {
         for (int i = 0; i < data.length; i++) {
             bigByte[i] = data[i];
         }
-        data = bigByte;
-        
 
-        
-        
-        FreeBlock newSpaceFBlock = new FreeBlock(oldEnd, initialSize);
-        freelist.insert(newSpaceFBlock);
+        data = bigByte;
+
+        FreeBlock lastBlock = (FreeBlock)freelist.getNode(freelist.getSize()-1)
+            .getItem();
+
+        // if the last freeblock includes the space at the end, just expand it
+        // by initialSize, if not, then instead create a new freeblock
+        if (lastBlock.getPosition() + lastBlock.getSize() == oldEnd) {
+            int newSize = lastBlock.getSize() + initialSize;
+            int newPos = lastBlock.getPosition();
+            FreeBlock newBlock = new FreeBlock(newPos, newSize);
+            freelist.getNode(freelist.getSize()-1).setItem(newBlock);
+        }
+        else {
+            FreeBlock newSpaceFBlock = new FreeBlock(oldEnd, initialSize);
+            freelist.insert(newSpaceFBlock);
+        }
+
         System.out.println("Memory pool expanded to be " + bigByte.length
             + " bytes");
     }
