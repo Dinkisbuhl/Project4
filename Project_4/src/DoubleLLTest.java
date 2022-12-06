@@ -73,40 +73,43 @@ public class DoubleLLTest extends TestCase {
      * Tests the delete() method
      */
     public void testDelete() {
-        assertEquals(dll.getSize(), 0);
+        // Delete commands that shouldn't do anything
+    	assertEquals(dll.getSize(), 0);
         dll.delete(null);
         assertEquals(dll.getSize(), 0);
         dll.delete(1);
         assertEquals(dll.getSize(), 0);
+        dll.delete(-1);
+        assertEquals(dll.getSize(), 0);
         
+        // Sets up the DLL to be tested
         dll.insert(1);
         dll.insert(2);
         dll.insert(3);
         dll.insert(4);
         dll.insert(5);
         
-        // 1 2 3 4 5
+        // 1 2 3 4 5 
         assertNull(dll.getNode(0).getPrev().getItem());
+        assertNotNull(dll.getNode(0).getNext().getItem());
         dll.delete(1);
         assertEquals(dll.getSize(), 4);
-        
-        // 2 3 4 5
-        assertNull(dll.getNode(3).getNext());
+        // 2 3 4 5 
+        assertNotNull(dll.getNode(3).getPrev().getItem());
+        assertNull(dll.getNode(3).getNext().getItem());
         dll.delete(5);
         assertEquals(dll.getSize(), 3);
-        
-        // 2 3 4
+        // 2 3 4 
+        assertNotNull(dll.getNode(1).getNext().getItem());
+        assertNotNull(dll.getNode(1).getNext().getItem());
         dll.delete(3);
         assertEquals(dll.getSize(), 2);
-        
         // 2 4
-        dll.delete(-1);
-        assertEquals(dll.getSize(), 2);
         dll.delete(6);
         assertEquals(dll.getSize(), 2);
         dll.delete(null);
         assertEquals(dll.getSize(), 2);
-       
+        // 2 4
     }
     
     /**

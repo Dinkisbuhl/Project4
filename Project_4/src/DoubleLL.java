@@ -51,6 +51,8 @@ public class DoubleLL<T> {
   	    else {
   	        Node<T> oldLast = tail.getPrev();
   	        oldLast.setNext(addNode);
+  	        addNode.setPrev(oldLast);
+  	        addNode.setNext(tail);
   	        tail.setPrev(addNode);
   	    	
 //  	    	Node newNext = head.getNext().getNext();
@@ -131,7 +133,7 @@ public class DoubleLL<T> {
                 newLast.setNext(tail);
                 tail.setPrev(newLast);
             }
-            else if (current.getNext() != null && current.getPrev() != null) {
+            else {
                 Node<T> p = current.getPrev();
                 Node<T> n = current.getNext();
                 p.setNext(n);
