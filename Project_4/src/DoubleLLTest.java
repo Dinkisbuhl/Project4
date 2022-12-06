@@ -160,6 +160,7 @@ public class DoubleLLTest extends TestCase {
         assertEquals(nd2.getItem(), 2);
     }
     
+    
     /**
      * Tests the print() method
      */
