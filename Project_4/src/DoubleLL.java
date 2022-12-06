@@ -222,13 +222,15 @@ public class DoubleLL<T> {
             System.out.print("No FreeBlocks:\r\n");
         }
         else {
-        	System.out.println("FreeBlock List:");
-        	Node curr = head.getNext();
+            Node curr = head.getNext();
             for (int i = 0; i < size; i++) {
-                System.out.println(curr.getItem());
+                System.out.print(curr.getItem().toString());
+                if (i < size - 1) {
+                    System.out.print(" -> ");
+                }
                 curr = curr.getNext();
             }
-            System.out.println("Total FreeBlocks: " + size);
+            System.out.println("");
         }
     }
     
