@@ -1,3 +1,5 @@
+import student.TestCase;
+
 /**
  * Tests the methods in the MemPool Class
  * 
@@ -5,7 +7,7 @@
  * @version 2022-12-01
  */
 
-import junit.framework.TestCase;
+
 
 public class MemPoolTest extends TestCase {
 

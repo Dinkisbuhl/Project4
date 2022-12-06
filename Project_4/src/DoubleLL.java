@@ -37,25 +37,28 @@ public class DoubleLL<T> {
      * @param obj
      *            THe object being inserted into the DoubleLL
      */
-    @SuppressWarnings("unchecked")
     public void insert(T obj) {
         if (obj == null) {
             return;
         }
-        Node<T> addNode = new Node<T>(obj);
-        if (size == 0) {
-            head.setNext(addNode);
-            addNode.setPrev(head);
-            tail.setPrev(addNode);
-            addNode.setNext(tail);
-        }
-        else {
-            Node newNext = head.getNext().getNext();
-            head.setNext(addNode);
-            addNode.setPrev(head);
-            addNode.setNext(newNext);
-            newNext.setPrev(addNode);
-        }
+  	    Node<T> addNode = new Node<T>(obj);
+  	    if (size == 0) {
+  	        head.setNext(addNode);
+  	        addNode.setPrev(head);
+  	        tail.setPrev(addNode);
+  	        addNode.setNext(tail);
+  	    }
+  	    else {
+  	        Node<T> oldLast = tail.getPrev();
+  	        oldLast.setNext(addNode);
+  	        tail.setPrev(addNode);
+  	    	
+//  	    	Node newNext = head.getNext().getNext();
+//  	    	head.setNext(addNode);
+//  	        addNode.setPrev(head);
+//  	        addNode.setNext(newNext);
+//  	        newNext.setPrev(addNode);
+  	    }
         size++;
     }
 
@@ -67,21 +70,53 @@ public class DoubleLL<T> {
      *            The object to be removed
      *            from the DoubleLL
      */
+    @SuppressWarnings("unchecked")
     public void delete(T obj) {
-        if (obj == null) {
+        if (obj == null || size == 0) {
             return;
         }
-        if (head.getNext() != null) {
-            Node<T> current = head.getNext();
-            while (current != null && current.getItem() != obj) {
-                current = current.getNext();
+        Node<T> current = null;
+        for (int i = 0; i < size; i++) {
+            Node<T> nd = this.getNode(i);
+            if (nd.getItem() == obj) {
+                current = nd;
+                break;
             }
-            if (current == tail) {
-                return;
-            }
-            current.getPrev().setNext(current.next);
-            current.getNext().setPrev(current.getPrev());
         }
+        
+        if (current == null) {
+            return;
+        }
+        else {
+            if (current.getNext() != null && current.getPrev() != null) {
+                Node<T> p = current.getPrev();
+                Node<T> n = current.getNext();
+                p.setNext(n);
+                n.setPrev(p);
+            }
+            else if (current.getNext() == tail) {
+                Node<T> newLast = current.getPrev(); 
+                newLast.setNext(tail);
+                tail.setPrev(newLast);
+            }
+            else if (current.getPrev() == head) {
+                Node<T> newFirst = current.getNext();
+                head.setNext(newFirst);
+                newFirst.setPrev(head);
+            }
+            size--;
+        }
+        
+        
+//        	Node<T> current = head.getNext();
+//            while (current != null && current.getItem() != obj) {
+//                current = current.getNext();
+//            }
+//            if (current == null) {
+//                return;
+//            }
+//            current.getPrev().setNext(current.next);
+//            current.getNext().setPrev(current.getPrev());
     }
 
 
@@ -133,7 +168,7 @@ public class DoubleLL<T> {
      *        the location
      */
     public Node getNode(int location) {
-        if (location > size) {
+        if (location >= size) {
         	return null;
         }
     	Node current = head.getNext();
@@ -147,10 +182,16 @@ public class DoubleLL<T> {
      * Prints out all the nodes in the DoubleLL
      */
     public void print() {
-        System.out.println("FreeBlock List:");
-        Node curr = head.getNext();
-        while (curr != null) {
-            System.out.println(curr.getItem());
+        if (size == 0) {
+            System.out.print("No FreeBlocks:");
+        }
+        else {
+        	System.out.println("FreeBlock List:");
+        	Node curr = head.getNext();
+            while (curr != null) {
+                System.out.println(curr.getItem());
+            }
+            System.out.println("Total FreeBlocks: " + size);
         }
     }
     
