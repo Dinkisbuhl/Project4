@@ -88,21 +88,21 @@ public class DoubleLL<T> {
             return;
         }
         else {
-            if (current.getNext() != null && current.getPrev() != null) {
-                Node<T> p = current.getPrev();
-                Node<T> n = current.getNext();
-                p.setNext(n);
-                n.setPrev(p);
+            if (current.getPrev() == head) {
+                Node<T> newFirst = current.getNext();
+                head.setNext(newFirst);
+                newFirst.setPrev(head);
             }
             else if (current.getNext() == tail) {
                 Node<T> newLast = current.getPrev(); 
                 newLast.setNext(tail);
                 tail.setPrev(newLast);
             }
-            else if (current.getPrev() == head) {
-                Node<T> newFirst = current.getNext();
-                head.setNext(newFirst);
-                newFirst.setPrev(head);
+            else if (current.getNext() != null && current.getPrev() != null) {
+                Node<T> p = current.getPrev();
+                Node<T> n = current.getNext();
+                p.setNext(n);
+                n.setPrev(p);
             }
             size--;
         }

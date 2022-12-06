@@ -52,6 +52,8 @@ public class DoubleLLTest extends TestCase {
         assertEquals(dll.getSize(), 0);
         dll.delete(null);
         assertEquals(dll.getSize(), 0);
+        dll.delete(1);
+        assertEquals(dll.getSize(), 0);
         
         dll.insert(1);
         dll.insert(2);
@@ -59,22 +61,20 @@ public class DoubleLLTest extends TestCase {
         dll.insert(4);
         dll.insert(5);
 
-        
-        dll.delete(-1);
-        assertEquals(dll.getSize(), 5);
-        dll.delete(6);
-        assertEquals(dll.getSize(), 5);
-        dll.delete(null);
-        assertEquals(dll.getSize(), 5);
-        
         dll.delete(1);
         assertEquals(dll.getSize(), 4);
-        
-        // Errors are down here
         dll.delete(5);
         assertEquals(dll.getSize(), 3);
         dll.delete(3);
         assertEquals(dll.getSize(), 2);
+        
+        dll.delete(-1);
+        assertEquals(dll.getSize(), 2);
+        dll.delete(6);
+        assertEquals(dll.getSize(), 2);
+        dll.delete(null);
+        assertEquals(dll.getSize(), 2);
+       
     }
     
     /**
