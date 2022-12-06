@@ -179,13 +179,14 @@ public class DoubleLL<T> {
      */
     public void print() {
         if (size == 0) {
-            System.out.print("No FreeBlocks:");
+            System.out.print("No FreeBlocks:\r\n");
         }
         else {
         	System.out.println("FreeBlock List:");
         	Node curr = head.getNext();
-            while (curr != null) {
+            for (int i = 0; i < size; i++) {
                 System.out.println(curr.getItem());
+                curr = curr.getNext();
             }
             System.out.println("Total FreeBlocks: " + size);
         }
