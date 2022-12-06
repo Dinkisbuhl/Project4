@@ -11,11 +11,11 @@ public class DoubleLL<T> {
     /**
      * The head node in the DoubleLL
      */
-    Node<T> head;
+    private Node<T> head;
     /**
      * The tail node in the DoubleLL
      */
-    Node<T> tail;
+    private Node<T> tail;
 
     private int size;
 
@@ -41,38 +41,38 @@ public class DoubleLL<T> {
         if (obj == null) {
             return;
         }
-  	    Node<T> addNode = new Node<T>(obj);
-  	    if (size == 0) {
-  	        head.setNext(addNode);
-  	        addNode.setPrev(head);
-  	        tail.setPrev(addNode);
-  	        addNode.setNext(tail);
-  	    }
-  	    else {
-  	        Node<T> oldLast = tail.getPrev();
-  	        oldLast.setNext(addNode);
-  	        addNode.setPrev(oldLast);
-  	        addNode.setNext(tail);
-  	        tail.setPrev(addNode);
-  	    	
-//  	    	Node newNext = head.getNext().getNext();
-//  	    	head.setNext(addNode);
-//  	        addNode.setPrev(head);
-//  	        addNode.setNext(newNext);
-//  	        newNext.setPrev(addNode);
-  	    }
+        Node<T> addNode = new Node<T>(obj);
+        if (size == 0) {
+            head.setNext(addNode);
+            addNode.setPrev(head);
+            tail.setPrev(addNode);
+            addNode.setNext(tail);
+        }
+        else {
+            Node<T> oldLast = tail.getPrev();
+            oldLast.setNext(addNode);
+            addNode.setPrev(oldLast);
+            addNode.setNext(tail);
+            tail.setPrev(addNode);
+
+// Node newNext = head.getNext().getNext();
+// head.setNext(addNode);
+// addNode.setPrev(head);
+// addNode.setNext(newNext);
+// newNext.setPrev(addNode);
+        }
         size++;
     }
-    
+
 
     /**
      * Inserts an object into a specific position
      * 
      * @param obj
-     *       The object to insert into the DoubleLL
+     *            The object to insert into the DoubleLL
      * @param ind
-     *       The location where the object will
-     *       be placed
+     *            The location where the object will
+     *            be placed
      */
     public void insert(T obj, int ind) {
         if (obj == null || ind < 0 || ind > size) {
@@ -87,7 +87,7 @@ public class DoubleLL<T> {
         }
         else {
             Node<T> curr = head.getNext();
-            for(int i = 0; i < ind; i++) {
+            for (int i = 0; i < ind; i++) {
                 curr = curr.getNext();
             }
             curr.getPrev().setNext(addNode);
@@ -97,8 +97,8 @@ public class DoubleLL<T> {
         }
         size++;
     }
-    
-    
+
+
     /**
      * Deletes the object
      * 
@@ -119,7 +119,7 @@ public class DoubleLL<T> {
                 break;
             }
         }
-        
+
         if (current == null) {
             return;
         }
@@ -130,7 +130,7 @@ public class DoubleLL<T> {
                 newFirst.setPrev(head);
             }
             else if (current.getNext() == tail) {
-                Node<T> newLast = current.getPrev(); 
+                Node<T> newLast = current.getPrev();
                 newLast.setNext(tail);
                 tail.setPrev(newLast);
             }
@@ -142,17 +142,16 @@ public class DoubleLL<T> {
             }
             size--;
         }
-        
-        
-//        	Node<T> current = head.getNext();
-//            while (current != null && current.getItem() != obj) {
-//                current = current.getNext();
-//            }
-//            if (current == null) {
-//                return;
-//            }
-//            current.getPrev().setNext(current.next);
-//            current.getNext().setPrev(current.getPrev());
+
+// Node<T> current = head.getNext();
+// while (current != null && current.getItem() != obj) {
+// current = current.getNext();
+// }
+// if (current == null) {
+// return;
+// }
+// current.getPrev().setNext(current.next);
+// current.getNext().setPrev(current.getPrev());
     }
 
 
@@ -177,43 +176,45 @@ public class DoubleLL<T> {
     public void setSize(int s) {
         size = s;
     }
-    
-//  /**
-//   * Updates the DoubleLL to get rid of 
-//   * any nodes with value of 0     
-//   */
-//  @SuppressWarnings("unchecked")
-//	public void update() {
-//      Node curr = head.next;
-//      while (curr != null) {
-//          if ((int)curr.getItem() == 0) {
-//              delete((T)curr.getItem());
-//              break;
-//          }
-//          curr = curr.getNext();
-//      }
-//  }
-    
+
+// /**
+// * Updates the DoubleLL to get rid of
+// * any nodes with value of 0
+// */
+// @SuppressWarnings("unchecked")
+// public void update() {
+// Node curr = head.next;
+// while (curr != null) {
+// if ((int)curr.getItem() == 0) {
+// delete((T)curr.getItem());
+// break;
+// }
+// curr = curr.getNext();
+// }
+// }
+
+
     /**
-     * Gets the node 
+     * Gets the node
      * 
      * @param location
-     *       The location we have 
+     *            The location we have
      * @return Node
-     *        The node that exists at 
-     *        the location
+     *         The node that exists at
+     *         the location
      */
     public Node getNode(int location) {
         if (location >= size) {
-        	return null;
+            return null;
         }
-    	Node current = head.getNext();
-    	for (int i = 0; i < location; i++) {
+        Node current = head.getNext();
+        for (int i = 0; i < location; i++) {
             current = current.getNext();
         }
-    	return current;
+        return current;
     }
-    
+
+
     /**
      * Prints out all the nodes in the DoubleLL
      */
@@ -233,6 +234,5 @@ public class DoubleLL<T> {
             System.out.println("");
         }
     }
-    
 
 }

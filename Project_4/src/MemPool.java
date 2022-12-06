@@ -186,7 +186,7 @@ public class MemPool {
         else {
             FreeBlock before = new FreeBlock(-1, -1);
             FreeBlock after = new FreeBlock(-1, -1);
-            
+
             int bInd = -1;
             int aInd = -1;
             int thisInd = 0;
@@ -202,14 +202,15 @@ public class MemPool {
                     after = curr;
                     aInd = i;
                 }
-                
+
                 if (curr.getPosition() < startPos) {
                     thisInd = i;
                 }
             }
 
             if (before.getPosition() != -1 && after.getPosition() != -1) {
-                int newSize = before.getSize() + lengthOfBytes + 2 + after.getSize();
+                int newSize = before.getSize() + lengthOfBytes + 2 + after
+                    .getSize();
                 int newPos = before.getPosition();
                 FreeBlock newBlock = new FreeBlock(newPos, newSize);
                 freelist.getNode(bInd).setItem(newBlock);
