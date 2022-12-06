@@ -130,17 +130,23 @@ public class DoubleLLTest extends TestCase {
      */
     public void testPrint() {
 
-    	String[] inpInsert = { "P4TestPrint.txt" };
         PrintStreamWithHistory sysout = systemOut();
+        dll.print();
+        dll.insert(1);
+        dll.print();
+        dll.insert(2);
+        dll.print();
+        dll.insert(3);
         dll.print();
         String history = sysout.getHistory();
         String outComp = "No FreeBlocks:\r\n" +
             "FreeBlock List:\r\n" +
-        	"1\r\n" + "Total FreeBlocks: 1" +	
+        	"1\r\n" + "Total FreeBlocks: 1\r\n" +	
             "FreeBlock List:\r\n" +
-        	"1\r\n" + "2\r\n" + "Total FreeBlocks: 2" +	
+        	"1\r\n" + "2\r\n" + "Total FreeBlocks: 2\r\n" +	
         	"FreeBlock List:\r\n" +
-        	"1\r\n" + "2\r\n" + "Total FreeBlocks: 2";
+        	"1\r\n" + "2\r\n" + "3\r\n" + 
+        	"Total FreeBlocks: 3\r\n";
         assertEquals(history, outComp);
         
         
