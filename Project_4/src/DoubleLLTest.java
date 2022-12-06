@@ -33,6 +33,30 @@ public class DoubleLLTest extends TestCase {
         assertEquals(dll.getSize(), 2);
     }
     
+    /**
+     * Tests the insert(T, int) method {
+     */
+    public void testInsert2() {
+    	int test = 5;
+        assertEquals(dll.getSize(), 0);
+        dll.insert(null, -1);
+        assertEquals(dll.getSize(), 0);
+        dll.insert(null, 1);
+        assertEquals(dll.getSize(), 0);
+        dll.insert(test, -1);
+        assertEquals(dll.getSize(), 0);
+        dll.insert(test, 1);
+        assertEquals(dll.getSize(), 0);
+        
+        dll.insert(0, 0);
+        assertEquals(dll.getSize(), 1);
+        
+        dll.insert(1, 1);
+        dll.insert(2, 2);
+        dll.insert(3, 3);
+        assertEquals(dll.getSize(), 4);
+    }
+    
 //    /**
 //     * Tests the update() method
 //     */
@@ -60,14 +84,22 @@ public class DoubleLLTest extends TestCase {
         dll.insert(3);
         dll.insert(4);
         dll.insert(5);
-
+        
+        // 1 2 3 4 5
+        assertNull(dll.getNode(0).getPrev().getItem());
         dll.delete(1);
         assertEquals(dll.getSize(), 4);
+        
+        // 2 3 4 5
+        assertNull(dll.getNode(3).getNext());
         dll.delete(5);
         assertEquals(dll.getSize(), 3);
+        
+        // 2 3 4
         dll.delete(3);
         assertEquals(dll.getSize(), 2);
         
+        // 2 4
         dll.delete(-1);
         assertEquals(dll.getSize(), 2);
         dll.delete(6);
