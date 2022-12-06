@@ -98,8 +98,16 @@ public class MemPoolTest extends TestCase {
         
         tMP.insert("something");
         
+        assertEquals(tMP.getFreeList().getSize(), 0);
+        
+        tMP.insert("zero");
+        
+        assertEquals(tMP.getFreeList().getSize(), 0);
+        
+        tMP.insert("zoros");
+        
         assertEquals(tMP.getFreeList().getSize(), 1);
-        assertEquals(((FreeBlock) tMP.getFreeList().getNode(0).getItem()).getPosition(), 14);
+        assertEquals(((FreeBlock) tMP.getFreeList().getNode(0).getItem()).getPosition(), 27);
     }
     
     /**

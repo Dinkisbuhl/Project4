@@ -102,8 +102,26 @@ public class MemPool {
 
         // if we still are left with the original bestFit freeblock, then we
         // must have no freeblock big enough left... so expand
-        if (bestFit.getSize() == -1) {
+        while (bestFit.getSize() == -1) {
             expand();
+
+            freeListLen = freelist.getSize();
+            
+            for (int i = 0; i < freeListLen; i++) {
+                Node currNode = freelist.getNode(i);
+                FreeBlock curr = (FreeBlock)currNode.getItem();
+                if (curr.getSize() >= totalLength) {
+                    if (first) {
+                        bestFit = curr;
+                        bestFitIndex = i;
+                        first = false;
+                    }
+                    else if (curr.getSize() < bestFit.getSize()) {
+                        bestFit = curr;
+                        bestFitIndex = i;
+                    }
+                }
+            }
         }
 
         // from here we must now subtract space from the freeblock we've found
@@ -210,20 +228,28 @@ public class MemPool {
 
         data = bigByte;
 
-        FreeBlock lastBlock = (FreeBlock)freelist.getNode(freelist.getSize()-1)
-            .getItem();
+        FreeBlock lastBlock;
 
-        // if the last freeblock includes the space at the end, just expand it
-        // by initialSize, if not, then instead create a new freeblock
-        if (lastBlock.getPosition() + lastBlock.getSize() == oldEnd) {
-            int newSize = lastBlock.getSize() + initialSize;
-            int newPos = lastBlock.getPosition();
-            FreeBlock newBlock = new FreeBlock(newPos, newSize);
-            freelist.getNode(freelist.getSize()-1).setItem(newBlock);
+        if (freelist.getSize() == 0) {
+            lastBlock = new FreeBlock(oldEnd, initialSize);
+            freelist.insert(lastBlock);
         }
         else {
-            FreeBlock newSpaceFBlock = new FreeBlock(oldEnd, initialSize);
-            freelist.insert(newSpaceFBlock);
+            lastBlock = (FreeBlock)freelist.getNode(freelist.getSize() - 1)
+                .getItem();
+            
+            // if the last freeblock includes the space at the end, just expand it
+            // by initialSize, if not, then instead create a new freeblock
+            if (lastBlock.getPosition() + lastBlock.getSize() == oldEnd) {
+                int newSize = lastBlock.getSize() + initialSize;
+                int newPos = lastBlock.getPosition();
+                FreeBlock newBlock = new FreeBlock(newPos, newSize);
+                freelist.getNode(freelist.getSize() - 1).setItem(newBlock);
+            }
+            else {
+                FreeBlock newSpaceFBlock = new FreeBlock(oldEnd, initialSize);
+                freelist.insert(newSpaceFBlock);
+            }
         }
 
         System.out.println("Memory pool expanded to be " + bigByte.length
