@@ -98,7 +98,7 @@ public class MemMan {
                             world.insertSong(hTSong, songName);
                         }
                         else {
-                            String artistAndSong = cScanner2.next();
+                            String artistAndSong = line.substring(7);
                             String[] splits = artistAndSong.split("<");
                             String[] findingSong = splits[1].split(">");
 
@@ -114,12 +114,12 @@ public class MemMan {
                     else if (next.equals("remove")) {
                         String removeWhat = cScanner2.next();
                         if (removeWhat.equals("song")) {
-                            String removeSong = cScanner2.next();
+                            String removeSong = line.substring(12);
                             
                             world.remove(hTSong, removeSong);
                         }
                         else if (removeWhat.equals("artist")) {
-                       	    String removeArtist = cScanner2.next();
+                       	    String removeArtist = line.substring(14);
                             
                             world.remove(hTArtist, removeArtist);
                         }

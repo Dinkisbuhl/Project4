@@ -282,6 +282,6 @@ public class MemPool {
         }
 
         System.out.println("Memory pool expanded to be " + bigByte.length
-            + " bytes");
+            + " bytes.");
     }
 }
