@@ -173,7 +173,7 @@ public class MemPool {
         int lengthOfBytes = (lenBytes[0] & 0xFF) << 8 | (lenBytes[1] & 0xFF);
 
         // just because I like it better this way, zero out the data
-        for (int i = startPos; i < lengthOfBytes + 2; i++) {
+        for (int i = startPos; i < (startPos + lengthOfBytes + 2); i++) {
             data[i] = 0;
         }
 
@@ -283,13 +283,5 @@ public class MemPool {
 
         System.out.println("Memory pool expanded to be " + bigByte.length
             + " bytes");
-    }
-
-
-    /**
-     * Merges FreeBlocks in the FreeList together
-     */
-    private void merge(int firstPos, int secondPos) {
-        
     }
 }
