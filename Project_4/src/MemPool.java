@@ -171,27 +171,48 @@ public class MemPool {
         lenBytes[1] = data[startPos + 1];
 
         int lengthOfBytes = (lenBytes[0] & 0xFF) << 8 | (lenBytes[1] & 0xFF);
-        
+
         byte[] bytes = new byte[lengthOfBytes];
-        
+
         // just because I like it better this way, zero out the data
-        for(int i = startPos; i < lengthOfBytes + 2; i++) {
+        for (int i = startPos; i < lengthOfBytes + 2; i++) {
             data[i] = 0;
         }
-        
-        
+
         int freeListLen = freelist.getSize();
-        
+
         if (freeListLen == 0) {
-            
+            FreeBlock newBlock = new FreeBlock(startPos, lengthOfBytes + 2);
+            freelist.insert(newBlock);
         }
         else {
-            FreeBlock before;
-            FreeBlock after;
-            
-            
-        }
+            FreeBlock before = new FreeBlock(-1, -1);
+            FreeBlock after = new FreeBlock(-1, -1);
 
+            for (int i = 0; i < freeListLen; i++) {
+                FreeBlock curr = (FreeBlock)freelist.getNode(i).getItem();
+
+                if (curr.getPosition() + curr.getSize() == startPos) {
+                    before = curr;
+                }
+                if (startPos + lengthOfBytes + 2 == curr.getPosition()) {
+                    after = curr;
+                }
+            }
+
+            if (before.getPosition() != -1 && after.getPosition() != -1) {
+
+            }
+            else if (before.getPosition() != -1) {
+
+            }
+            else if (after.getPosition() != -1) {
+
+            }
+            else {
+                
+            }
+        }
     }
 
 
@@ -249,79 +270,7 @@ public class MemPool {
     /**
      * Merges FreeBlocks in the FreeList together
      */
-    private void merge(FreeBlock fb) {
-
-        int startLoc = fb.getPosition();
-        int sizeOfFreeBloc = fb.getSize();
-        for (int i = 0; i < freelist.getSize(); i++) {
-            FreeBlock fB = (FreeBlock)freelist.getNode(i).getItem();
-
-            // Merge the FreeBlock with the FreeBlock behind it
-
-            // Merge the FreeBlock with the FreeBlock in front of it
-
-            // Merge the FreeBlcok with the FreeBlocks in front of it and behind
-            // it
-
-        }
-
-// for (int i = 0; i < freelist.getSize() - 1; i++) {
-// FreeBlock fb = (FreeBlock)freelist.getNode(i).getItem();
-// for (int j = 1; j < freelist.getSize(); i++) {
-// FreeBlock fb1 = (FreeBlock)freelist.getNode(j).getItem();
-// if (fb.getPosition() + fb.getSize() == fb1.getPosition()) {
-// FreeBlock newFB = new FreeBlock(fb.getPosition(), fb
-// .getSize() + fb1.getSize());
-// freelist.delete(fb);
-// freelist.delete(fb1);
-// freelist.insert(newFB);
-// }
-// }
-// }
+    private void merge(int firstPos, int secondPos) {
+        
     }
-
-// /**
-// * Inserts a byte into the array
-// *
-// * @param b
-// * The byte to be added into the
-// * array
-// */
-// private void insertIntoByteArr(byte b) {
-// int i = 0;
-// byte zeroByte = (byte)0;
-// while (data[i] != zeroByte) {
-// i++;
-// }
-// data[i] = b;
-// }
-
-// /**
-// * Finds the best spot to put the data
-// * into the MemPool using Best-Fit
-// *
-// * @param leng
-// * The object to be added to the
-// * FreeList
-// * @return int
-// * The location in the FreeList where
-// * the thing should be added to
-// */
-// private int findSpot(int leng) {
-// int location = -1;
-// int minDistance = Integer.MAX_VALUE;
-// Node<FreeBlock> curr = freelist.head.getNext();
-// for (int i = 0; i < freelist.getSize(); i++) {
-// if ((int)curr.getItem() < leng) {
-// int minDist = leng - ((FreeBlock)curr.getItem()).getSize();
-// if (minDist < minDistance) {
-// minDistance = minDist;
-// location = i;
-// }
-// }
-// curr = curr.getNext();
-// }
-// return location;
-// }
-
 }
