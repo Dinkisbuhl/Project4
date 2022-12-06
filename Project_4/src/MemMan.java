@@ -10,37 +10,37 @@ import java.util.Scanner;
  */
 
 public class MemMan {
-   
+
     private static HashTable hTSong;
     private static HashTable hTArtist;
     private static MemPool mpool;
     private static byte[] bytes;
-    
+
     /**
      * The main method of the MemMan
      * 
      * @param args
-     *       The array of strings from the file 
+     *            The array of strings from the file
      * @throws FileNotFoundException
-     *       The file might not be found 
+     *             The file might not be found
      */
     public static void main(String[] args) throws FileNotFoundException {
 
         int hashSize = 0;
         int memSize = 0;
-        
+
         if (args.length != 3) {
             System.out.println("Error message (change later)");
             return;
         }
-        
+
         try {
             hashSize = Integer.parseInt(args[0]);
         }
         catch (NumberFormatException e) {
             System.out.println("Error parsing hash size");
         }
-        
+
         try {
             memSize = Integer.parseInt(args[1]);
             bytes = new byte[memSize];
@@ -59,9 +59,10 @@ public class MemMan {
         hTSong = new HashTable(hashSize, "Song");
         hTArtist = new HashTable(hashSize, "Artist");
         DoubleLL<FreeBlock> dll = new DoubleLL<FreeBlock>();
-        mpool = new MemPool(bytes, dll);// Add instantiation of MemPool object here
+        mpool = new MemPool(bytes, dll);
+
         World world = new World(hTSong, hTArtist, mpool);
-        
+
         try (Scanner commandScanner = new Scanner(commandFile)) {
             while (commandScanner.hasNextLine()) {
                 String line = commandScanner.nextLine().trim();
@@ -87,13 +88,14 @@ public class MemMan {
                         String insertWhat = cScanner2.next();
                         if (insertWhat.equals("artist")) {
                             String artistName = cScanner2.next();
-                            
-                            // Check if the record if it's in the artist HashTable
+
+                            // Check if the record if it's in the artist
+                            // HashTable
                             world.insertArtist(hTArtist, artistName);
                         }
                         else if (insertWhat.equals("song")) {
                             String songName = cScanner2.next();
-                            
+
                             // Check if the record if it's in the song HashTable
                             world.insertSong(hTSong, songName);
                         }
@@ -105,8 +107,9 @@ public class MemMan {
                             String artist = splits[0];
                             String song = findingSong[1];
 
-                           // Check if the record if it's in the artist HashTable
-                           // Check if the record if it's in the song HashTable
+                            // Check if the record if it's in the artist
+                            // HashTable
+                            // Check if the record if it's in the song HashTable
                             world.insertArtist(hTArtist, artist);
                             world.insertSong(hTSong, song);
                         }
@@ -115,12 +118,12 @@ public class MemMan {
                         String removeWhat = cScanner2.next();
                         if (removeWhat.equals("song")) {
                             String removeSong = line.substring(12);
-                            
+
                             world.remove(hTSong, removeSong);
                         }
                         else if (removeWhat.equals("artist")) {
-                       	    String removeArtist = line.substring(14);
-                            
+                            String removeArtist = line.substring(14);
+
                             world.remove(hTArtist, removeArtist);
                         }
                     }

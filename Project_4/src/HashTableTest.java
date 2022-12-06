@@ -12,11 +12,11 @@ public class HashTableTest extends TestCase {
     /**
      * The Hashtable to be tested here
      */
-    HashTable hT;
+    private HashTable hT;
     /**
      * The Handle to be tested here
      */
-    Handle basicHandle;
+    private Handle basicHandle;
 
     /**
      * Sets up the HashTable for the
@@ -26,6 +26,7 @@ public class HashTableTest extends TestCase {
         hT = new HashTable(10, "Artist");
         basicHandle = new Handle(0);
     }
+
 
     /**
      * Tests the sFold method under normal
@@ -44,6 +45,7 @@ public class HashTableTest extends TestCase {
         assertEquals(0, hT.sFoldHash(str4));
         assertEquals(7, hT.sFoldHash(str5));
     }
+
 
     /**
      * Tests the sFold method for a filled up HashTable
@@ -64,6 +66,7 @@ public class HashTableTest extends TestCase {
         assertEquals(1, hT.sFoldHash(str6));
     }
 
+
     /**
      * Tests the insert method under normal
      * circumstances
@@ -79,6 +82,7 @@ public class HashTableTest extends TestCase {
         hT.hashInsert(str2, basicHandle);
         assertTrue(hT.hashSearch(str2));
     }
+
 
     /**
      * Tests the insert method and checking
@@ -96,6 +100,7 @@ public class HashTableTest extends TestCase {
         assertEquals(7, hT.sFoldHash(str1));
         assertEquals(7, hT.sFoldHash(str2));
     }
+
 
     /**
      * Tests the extendTable() method
@@ -119,8 +124,9 @@ public class HashTableTest extends TestCase {
         assertEquals(hT.getTableSize(), 10);
     }
 
+
     /**
-     * Tests the remove() method under 
+     * Tests the remove() method under
      * normal circumstances
      */
     public void testRemove() {
@@ -132,9 +138,10 @@ public class HashTableTest extends TestCase {
         assertFalse(hT.hashSearch(str1));
     }
 
+
     /**
      * Tests the remove method when filling
-     * the table 
+     * the table
      */
     public void testRemove2() {
         hT = new HashTable(5, "Artist");
