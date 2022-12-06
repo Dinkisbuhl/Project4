@@ -41,6 +41,13 @@ public class FreeBlockTest extends TestCase {
         fbTest.setSize(4);
         assertEquals(fbTest.getSize(), 4);
     }
+    
+    /**
+     * Tests the toString() method
+     */
+    public void testToString() {
+        assertEquals(fbTest.toString(), "(1,2)"); 
+    }
 
 }
 
