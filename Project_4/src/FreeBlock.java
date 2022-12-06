@@ -57,6 +57,13 @@ public class FreeBlock {
     public void setSize(int s) {
         size = s;
     }
+    
+    /**
+     * Converts the FreeBlock to a string
+     */
+    public String toString() {
+        return "(" + pos + "," + size + ")";
+    }
 
     
 }

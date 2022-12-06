@@ -166,22 +166,24 @@ public class DoubleLLTest extends TestCase {
     public void testPrint() {
 
         PrintStreamWithHistory sysout = systemOut();
-        dll.print();
-        dll.insert(1);
-        dll.print();
-        dll.insert(2);
-        dll.print();
-        dll.insert(3);
-        dll.print();
+        DoubleLL<FreeBlock> fb = new DoubleLL<FreeBlock>();
+        FreeBlock fb1 = new FreeBlock(10, 20);
+        FreeBlock fb2 = new FreeBlock(20, 30);
+        FreeBlock fb3 = new FreeBlock(30, 40);
+        Node<FreeBlock> n1 = new Node<FreeBlock>(fb1);
+        Node<FreeBlock> n2 = new Node<FreeBlock>(fb2);
+        Node<FreeBlock> n3 = new Node<FreeBlock>(fb3);
+        fb.print();
+        fb.insert(fb1);
+        fb.print();
+        fb.insert(fb2);
+        fb.print();
+        fb.insert(fb3);
+        fb.print();
         String history = sysout.getHistory();
         String outComp = "No FreeBlocks:\r\n" +
-            "FreeBlock List:\r\n" +
-        	"1\r\n" + "Total FreeBlocks: 1\r\n" +	
-            "FreeBlock List:\r\n" +
-        	"1\r\n" + "2\r\n" + "Total FreeBlocks: 2\r\n" +	
-        	"FreeBlock List:\r\n" +
-        	"1\r\n" + "2\r\n" + "3\r\n" + 
-        	"Total FreeBlocks: 3\r\n";
+                "(10,20)\r\n" + "(10,20) -> (20,30)\r\n" + 
+                "(10,20) -> (20,30) -> (30,40)\r\n";
         assertEquals(history, outComp);
         
         
