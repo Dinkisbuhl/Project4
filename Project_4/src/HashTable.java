@@ -252,6 +252,34 @@ public class HashTable {
 
 
     /**
+     * Gets all the handles in this hash table
+     * 
+     * @return
+     *         an array of handles
+     */
+    public Handle[] getAllHandles() {
+        Handle[] retArr = new Handle[hT.length];
+        Handle emptyHandle = new Handle(-1);
+
+        for (int i = 0; i < retArr.length; i++) {
+            retArr[i] = emptyHandle;
+        }
+
+        for (int i = 0; i < hT.length; i++) {
+            HashRecord curr = hT[i];
+            if (curr != null) {
+                Handle cH = curr.getHandle();
+                if (cH.getPosInMp() != -1) {
+                    retArr[i] = cH;
+                }
+            }
+        }
+
+        return retArr;
+    }
+
+
+    /**
      * This method is the string folding hash function.
      * Use folding on a string, summed 4 bytes at a time
      * 

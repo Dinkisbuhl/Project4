@@ -75,13 +75,13 @@ public class MemMan {
                     else if (next.equals("print")) {
                         String whatToPrint = cScanner2.next();
                         if (whatToPrint.equals("blocks")) {
-                            // TO DO
+                            world.printBlocks();
                         }
                         else if (whatToPrint.equals("songs")) {
-                            // TO DO
+                            world.printSongs();
                         }
                         else if (whatToPrint.equals("artists")) {
-                            // TO DO
+                            world.printArtists();
                         }
                     }
                     else if (next.equals("insert")) {

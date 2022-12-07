@@ -152,17 +152,86 @@ public class World {
 
 
     /**
-     * Prints
-     * 
-     * @param h1
-     *            the song hash table
-     * @param h2
-     *            the artist hash table
-     * @param mp
-     *            the memory pool
+     * Prints the freeblock list
      */
-    public void print(HashTable h1, HashTable h2, MemPool mp) {
+    public void printBlocks() {
+        mpool.printBlocksList(first);
+        if (first) {
+            first = false;
+        }
+    }
 
-        mpool.printAll();
+    /**
+     * Prints the songs in the mempool
+     */
+    public void printSongs() {
+        Handle[] hArr = hTSong.getAllHandles();
+        String[] songArr = new String[hArr.length];
+        int total = 0;
+
+        for (int i = 0; i < hArr.length; i++) {
+            Handle curr = hArr[i];
+            if (curr.getPosInMp() != -1) {
+                songArr[i] = mpool.get(curr);
+            }
+        }
+
+        for (int i = 0; i < songArr.length; i++) {
+            String curr = songArr[i];
+            if (curr != null) {
+                if (first) {
+                    first = false;
+                }
+                else {
+                    System.out.print("\n");
+                }
+                System.out.print("|" + curr + "| " + i);
+                total++;
+            }
+        }
+        if (first) {
+            first = false;
+        }
+        else {
+            System.out.print("\n");
+        }
+        System.out.print("total songs: " + total);
+    }
+
+    /**
+     * prints the artists in the mempool
+     */
+    public void printArtists() {
+        Handle[] hArr = hTArtist.getAllHandles();
+        String[] artArr = new String[hArr.length];
+        int total = 0;
+
+        for (int i = 0; i < hArr.length; i++) {
+            Handle curr = hArr[i];
+            if (curr.getPosInMp() != -1) {
+                artArr[i] = mpool.get(curr);
+            }
+        }
+
+        for (int i = 0; i < artArr.length; i++) {
+            String curr = artArr[i];
+            if (curr != null) {
+                if (first) {
+                    first = false;
+                }
+                else {
+                    System.out.print("\n");
+                }
+                System.out.print("|" + curr + "| " + i);
+                total++;
+            }
+        }
+        if (first) {
+            first = false;
+        }
+        else {
+            System.out.print("\n");
+        }
+        System.out.print("total artists: " + total);
     }
 }

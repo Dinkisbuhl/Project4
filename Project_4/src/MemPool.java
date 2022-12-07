@@ -241,9 +241,69 @@ public class MemPool {
 
     /**
      * Prints all the elements in the FreeList
+     * 
+     * @param first
+     *            to check if this is first printed
      */
-    public void printAll() {
-        freelist.print();
+    public void printBlocksList(boolean first) {
+        ensureOrder();
+        freelist.print(first);
+    }
+
+
+    private void ensureOrder() {
+        FreeBlock[] sorting = new FreeBlock[freelist.getSize()];
+        FreeBlock[] sorted = new FreeBlock[freelist.getSize()];
+
+        for (int i = 0; i < freelist.getSize(); i++) {
+            sorting[i] = (FreeBlock)freelist.getNode(i).getItem();
+        }
+
+        for (int i = 0; i < sorting.length; i++) {
+            FreeBlock min = sorting[i];
+            int posMin = i;
+            if (min != null) {
+                for (int j = 0; j < sorting.length; j++) {
+                    FreeBlock curr = sorting[j];
+                    if (curr != null) {
+                        if (curr.getPosition() < min.getPosition()) {
+                            min = curr;
+                            posMin = j;
+                        }
+                    }
+                }
+            }
+            else {
+                boolean stillNull = true;
+                for (int j = 0; j < sorting.length; j++) {
+                    FreeBlock curr = sorting[j];
+                    if (curr != null) {
+                        if (stillNull) {
+                            min = curr;
+                            posMin = j;
+                            stillNull = false;
+                        }
+                        else if (curr.getPosition() < min.getPosition()) {
+                            min = curr;
+                            posMin = j;
+                        }
+                    }
+                }
+            }
+            sorting[posMin] = null;
+            sorted[i] = min;
+        }
+
+        for (int i = 0; i < freelist.getSize(); i++) {
+            freelist.getNode(i).setItem(sorted[i]);
+        }
+
+        /*
+         * for (int i = 0; i < freelist.getSize(); i++) {
+         * freelist.getNode(i).setNext(freelist.getNode(i + 1));
+         * freelist.getNode(i).setPrev(freelist.getNode(i - 1));
+         * }
+         */
     }
 
 
@@ -287,5 +347,34 @@ public class MemPool {
 
         System.out.println("Memory pool expanded to be " + bigByte.length
             + " bytes.");
+    }
+
+
+    /**
+     * Gets a String from the mpool using a ticket handle
+     * 
+     * @param ticket
+     *            the handle giving pos
+     * @return
+     *         the song/artist
+     */
+    public String get(Handle ticket) {
+        int startPos = ticket.getPosInMp();
+        byte[] lenBytes = new byte[2];
+        lenBytes[0] = data[startPos];
+        lenBytes[1] = data[startPos + 1];
+
+        int lengthOfBytes = (lenBytes[0] & 0xFF) << 8 | (lenBytes[1] & 0xFF);
+        byte[] theBytes = new byte[lengthOfBytes];
+
+        int j = 0;
+        for (int i = startPos + 2; i < startPos + lengthOfBytes + 2; i++) {
+            theBytes[j] = data[i];
+            j++;
+        }
+
+        String retStr = new String(theBytes, 0, lengthOfBytes);
+
+        return retStr;
     }
 }

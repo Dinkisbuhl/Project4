@@ -215,10 +215,16 @@ public class DoubleLL<T> {
 
     /**
      * Prints out all the nodes in the DoubleLL
+     *
+     * @param first
+     *            to check if this is the first thing printed
      */
-    public void print() {
+    public void print(boolean first) {
+        if (!first) {
+            System.out.print("\n");
+        }
         if (size == 0) {
-            System.out.print("No FreeBlocks:\r\n");
+            System.out.print("No FreeBlocks:");
         }
         else {
             Node curr = head.getNext();
@@ -229,7 +235,6 @@ public class DoubleLL<T> {
                 }
                 curr = curr.getNext();
             }
-            System.out.println("");
         }
     }
 

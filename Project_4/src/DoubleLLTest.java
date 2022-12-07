@@ -179,16 +179,18 @@ public class DoubleLLTest extends TestCase {
         Node<FreeBlock> n1 = new Node<FreeBlock>(fb1);
         Node<FreeBlock> n2 = new Node<FreeBlock>(fb2);
         Node<FreeBlock> n3 = new Node<FreeBlock>(fb3);
-        fb.print();
+        boolean first = true;
+        fb.print(first);
+        first = false;
         fb.insert(fb1);
-        fb.print();
+        fb.print(first);
         fb.insert(fb2);
-        fb.print();
+        fb.print(first);
         fb.insert(fb3);
-        fb.print();
+        fb.print(first);
         String history = sysout.getHistory();
         String outComp = "No FreeBlocks:\r\n" + "(10,20)\r\n"
-            + "(10,20) -> (20,30)\r\n" + "(10,20) -> (20,30) -> (30,40)\r\n";
+            + "(10,20) -> (20,30)\r\n" + "(10,20) -> (20,30) -> (30,40)";
         assertEquals(history, outComp);
 
 // sysout = systemOut();
