@@ -15,7 +15,9 @@ public class MemPool {
      * Constructor for the MemPool
      * 
      * @param b
+     *            The byte array
      * @param dll
+     *            The double linked list
      */
     public MemPool(byte[] b, DoubleLL<FreeBlock> dll) {
         data = b;
@@ -65,6 +67,8 @@ public class MemPool {
      * 
      * @param str
      *            The string record being put into the byte[]
+     * @return
+     *         The Handle to be given to Hash Table
      */
     public Handle insert(String str) {
 
@@ -159,9 +163,8 @@ public class MemPool {
     /**
      * Removes a string record from the byte[]
      * 
-     * @param str
-     *            The string record to be removed from the byte[]
-     * 
+     * @param ticket
+     *            The handle of the record to be removed from the byte[]
      */
     public void remove(Handle ticket) {
 

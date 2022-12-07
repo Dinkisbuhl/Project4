@@ -4,7 +4,6 @@
  * @author Rakesh Chandraraj, Kyle Hilgenberg
  * @version 2022-12-02
  */
-
 public class World {
 
     private HashTable hTSong;
@@ -13,7 +12,14 @@ public class World {
     private boolean first;
 
     /**
-     * Constructor
+     * The constructor for World
+     * 
+     * @param h1
+     *            the song hash table
+     * @param h2
+     *            the artist hash table
+     * @param mp
+     *            the memory pool
      */
     public World(HashTable h1, HashTable h2, MemPool mp) {
         hTSong = h1;
@@ -26,6 +32,11 @@ public class World {
     /**
      * Inserts the record into the mpool and puts the handle into the song hash
      * table
+     * 
+     * @param h
+     *            the hash table
+     * @param input
+     *            the string being inserted
      */
     public void insertSong(HashTable h, String input) {
 
@@ -58,6 +69,11 @@ public class World {
     /**
      * Inserts the record into the mpool and puts the handle into the artist
      * hash table
+     * 
+     * @param h
+     *            the hash table
+     * @param input
+     *            the string being inserted
      */
     public void insertArtist(HashTable h, String input) {
 
@@ -89,7 +105,12 @@ public class World {
 
 
     /**
-     * Removes a record from the World
+     * Removes a string record from the hash table and memory pool
+     * 
+     * @param h
+     *            the hash table
+     * @param input
+     *            the string being removed
      */
     public void remove(HashTable h, String input) {
 
@@ -131,8 +152,14 @@ public class World {
 
 
     /**
-     * Prints all the records in the HashTable and the
-     * MemPool
+     * Prints
+     * 
+     * @param h1
+     *            the song hash table
+     * @param h2
+     *            the artist hash table
+     * @param mp
+     *            the memory pool
      */
     public void print(HashTable h1, HashTable h2, MemPool mp) {
 

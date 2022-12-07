@@ -11,7 +11,10 @@ public class Handle {
     private int posInMP;
 
     /**
-     * Constructor
+     * The constructor for Handle
+     * 
+     * @param pos
+     *            The pos saved by Handle
      */
     public Handle(int pos) {
         posInMP = pos;

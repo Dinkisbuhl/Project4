@@ -3,9 +3,9 @@
  * 
  * @author Rakesh Chandraraj, Kyle Hilgenberg
  * @version 2022-12-02
+ * @param <T>
+ *            The generic item the nodes carry
  */
-
-@SuppressWarnings("rawtypes")
 public class DoubleLL<T> {
 
     /**
@@ -31,9 +31,7 @@ public class DoubleLL<T> {
 
     /**
      * Inserts an object into the DoubleLL
-     * 
-     * @param pos
-     *            Where the object is being inserted into
+     *
      * @param obj
      *            THe object being inserted into the DoubleLL
      */

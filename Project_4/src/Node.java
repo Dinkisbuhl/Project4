@@ -3,8 +3,9 @@
  * 
  * @author Rakesh Chandraraj, Kyle Hilgenberg
  * @version 2022-11-29
+ * @param <T>
+ *            The generic item that node carries
  */
-
 public class Node<T> {
 
     /**

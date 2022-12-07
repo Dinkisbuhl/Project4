@@ -14,10 +14,12 @@ public class HashTable {
     private String emptyKey = "";
 
     /**
-     * Constructor
+     * The constructor for HashTable
      * 
      * @param s
      *            The size of the HashTable
+     * @param n
+     *            The name of the HashTable
      */
     public HashTable(int s, String n) {
         tableSize = s;
@@ -36,35 +38,35 @@ public class HashTable {
     /**
      * Insert something into a HashTable
      * 
-     * @param K
+     * @param k
      *            The length of the record
      * @param h
      *            The record
      */
-    public void hashInsert(String K, Handle h) {
+    public void hashInsert(String k, Handle h) {
         if (fullness != 0) {
             if (willExtend()) {
                 extendTable();
             }
         }
 
-        int home = sFoldHash(K);
+        int home = sFoldHash(k);
         int pos = home;
 
         if (hT[pos] == null) {
-            hT[pos] = new HashRecord(K, h);
+            hT[pos] = new HashRecord(k, h);
             fullness++;
             return;
         }
         else if (hT[pos].getKey().equals(emptyKey)) {
-            hT[pos].setKey(K);
+            hT[pos].setKey(k);
             hT[pos].setHandle(h);
             fullness++;
             return;
         }
         else {
-            pos = probe(K, home);
-            hT[pos].setKey(K);
+            pos = probe(k, home);
+            hT[pos].setKey(k);
             hT[pos].setHandle(h);
             fullness++;
             return;
@@ -75,16 +77,16 @@ public class HashTable {
     /**
      * Removes a string from the HashTable
      * 
-     * @param K
+     * @param k
      *            The record to be removed from the
      *            HashTable
      * @return
      *         True if the record is removed, and
      *         false otherwise
      */
-    public Handle hashRemove(String K) {
+    public Handle hashRemove(String k) {
         // a tombstone will be a null HashRecord
-        int pos = posSearch(K);
+        int pos = posSearch(k);
         if (pos == -1) {
             return null;
         }
@@ -98,19 +100,17 @@ public class HashTable {
 
 
     /**
-     * Search for a record with key K
+     * Search for a record with key k
      * 
-     * @param K
+     * @param k
      *            The key of the record
-     * @param e
-     *            The record
      * @return boolean
      *         True if the record is in the
      *         HashTable, and false
      *         otherwise
      */
-    public boolean hashSearch(String K) {
-        int home = sFoldHash(K);
+    public boolean hashSearch(String k) {
+        int home = sFoldHash(k);
         int pos = home;
         int j = 0;
 
@@ -124,7 +124,7 @@ public class HashTable {
             else if (hT[pos].getKey().equals(emptyKey)) {
                 return false; // if it gets here, there is no Key K
             }
-            else if (!(hT[pos].getKey().equals(K))) {
+            else if (!(hT[pos].getKey().equals(k))) {
                 pos = (home + j * j) % tableSize;
                 j++;
             }
@@ -139,13 +139,13 @@ public class HashTable {
     /**
      * Searches for the record in the HashTable
      * 
-     * @param K
+     * @param k
      *            The key of the record
      * @return int
      *         The position of the record
      */
-    public int posSearch(String K) {
-        int home = sFoldHash(K);
+    public int posSearch(String k) {
+        int home = sFoldHash(k);
         int pos = home;
         int j = 0;
 
@@ -159,7 +159,7 @@ public class HashTable {
             else if (hT[pos].getKey().equals(emptyKey)) {
                 return -1; // if it gets here, there is no Key K
             }
-            else if (!(hT[pos].getKey().equals(K))) {
+            else if (!(hT[pos].getKey().equals(k))) {
                 pos = (home + j * j) % tableSize;
                 j++;
             }
@@ -175,7 +175,7 @@ public class HashTable {
      * Does the quadratic probe to find the next
      * possible spot
      * 
-     * @param K
+     * @param k
      *            The key of the record
      * @param i
      *            The starting location of the probe
@@ -183,7 +183,7 @@ public class HashTable {
      *         The position in the HashTable where
      *         the record is to be stored
      */
-    public int probe(String K, int i) {
+    public int probe(String k, int i) {
         int home = i;
         int pos = home;
         int j = 1;
@@ -228,12 +228,24 @@ public class HashTable {
     }
 
 
+    /**
+     * Checks if the table will be extended
+     * 
+     * @return
+     *         if the table will be extended
+     */
     public boolean willExtend() {
         return ((((tableSize / fullness) == 2) && (tableSize % fullness) == 0)
             || (tableSize / fullness) < 2);
     }
 
 
+    /**
+     * Gets the hash table's fullness
+     * 
+     * @return
+     *         the fullness
+     */
     public int getFullness() {
         return fullness;
     }
@@ -244,8 +256,9 @@ public class HashTable {
      * Use folding on a string, summed 4 bytes at a time
      * 
      * @param s
-     * @param M
+     *            The string being folded
      * @return
+     *         The int representation
      */
     public int sFoldHash(String s) {
         int intLength = s.length() / 4;
@@ -283,6 +296,7 @@ public class HashTable {
      * Returns the name of the table
      * 
      * @return
+     *         the name of the hash table
      */
     public String getName() {
         return name;
@@ -322,8 +336,8 @@ public class HashTable {
         }
 
 
-        private void setKey(String K) {
-            key = K;
+        private void setKey(String k) {
+            key = k;
         }
 
 

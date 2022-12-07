@@ -11,7 +11,12 @@ public class FreeBlock {
     private int size;
 
     /**
-     * Constructor
+     * The constructor for FreeBlock
+     * 
+     * @param p
+     *            the input position
+     * @param s
+     *            the input size
      */
     public FreeBlock(int p, int s) {
         pos = p;
@@ -64,7 +69,10 @@ public class FreeBlock {
 
 
     /**
-     * Converts the FreeBlock to a string
+     * Converts a FreeBlock to a string
+     * 
+     * @return
+     *         The FreeBlock as a string
      */
     public String toString() {
         return "(" + pos + "," + size + ")";
